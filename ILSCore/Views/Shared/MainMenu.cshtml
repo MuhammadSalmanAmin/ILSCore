@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "MainMenu";
+}
+
+
+<li class="nav-item">
+    <a href="javascript:;" class="nav-link nav-toggle">
+        <i class="fa fa-code-fork"></i>
+        <span class="title">Parts Management</span>
+        <span class="arrow"></span>
+        <span></span>
+    </a>
+    <ul class="sub-menu">
+        <li class="nav-item">
+
+            <a href="@Url.Content("~/Parts/Index")" class="nav-link">
+                <i class="fa fa-code-fork"></i>
+                <span class="title">View Parts</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="@Url.Content("~/Parts/AddParts")" class="nav-link">
+                <span class="title">Add Part</span>
+            </a>
+        </li>
+    </ul>
+</li>
+
+
+<li class="nav-item">
+
+    <a href="javascript:;" class="nav-link nav-toggle">
+
+        <i class="fa fa-users"></i>
+        <span class="title">User Management</span>
+        <span class="arrow"></span>
+    </a>
+    <ul class="sub-menu">
+        <li class="nav-item">
+            <a href="ui_datepaginator.html" class="nav-link">
+                <span class="title">Date Paginator</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="ui_nestable.html" class="nav-link">
+                <span class="title">Nestable List</span>
+            </a>
+        </li>
+    </ul>
+</li>
+

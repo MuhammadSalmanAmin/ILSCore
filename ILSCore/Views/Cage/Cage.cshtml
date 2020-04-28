@@ -1,0 +1,202 @@
+﻿@using ILS
+@model AddEditCageViewModel
+@{
+    ViewData["Title"] = "CageView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="@Url.Content("~/assets/global/plugins/jquery.min.js")"></script>
+
+<div class="portlet portlet-sortable light bordered bg-inverse">
+    <div class="portlet-title">
+        <div class="caption font-green">
+            <i class="icon-pin font-green"></i>
+            <span class="caption-subject bold"> Add Cage</span>
+        </div>
+    </div>
+    <!-- BEGIN FORM-->
+    @Html.ValidationSummary(true)
+    @using (Html.BeginForm(/*Action*/"AddCage",/*ControllerName*/ "Cage", FormMethod.Post, new { /*enctype = "multipart/form-data",*/ @class = "portlet-body form" }))
+    {
+        <div class="row">
+
+            <div class="col-md-12 column sortable">
+                <!-- BEGIN SAMPLE FORM PORTLET-->
+                <div class="portlet portlet-sortable light bordered">
+                    <div class="portlet-title ui-sortable-handle">
+                        <div class="caption font-green">
+                            <i class="icon-settings font-green"></i>
+                            <span class="caption-subject bold"> Basic Details</span>
+                        </div>
+
+                        <div class="tools">
+                            <a href="" class="collapse"> </a>
+                            <a href="" class="fullscreen"> </a>
+                        </div>
+                    </div>
+
+
+                    @*// main body starts from here*@
+                    <div class="portlet-body form">
+                        <div class="form-group form-md-line-input form-md-floating-label">
+                            @Html.TextBoxFor(x => x.ManufacturerName, new { id = "txtManufacturerName", @class = "form-control" })
+                            @Html.LabelFor(x => x.ManufacturerName, new { id = "lbManyufacturername", @class = "" })
+                            <span class="help-block">@Html.ValidationMessageFor(x => x.ManufacturerName)</span>
+
+                        </div>
+
+                        @*<div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group form-md-line-input form-md-floating-label">
+                                    @Html.DropDownListFor(x => x.PartCategoryId, Model.PartCategoryItems, new { @class = "form-control", id = "ddPartCategory" })
+                                    <label id="lblPartCategory" for="form_control_1">Part Category</label>
+                                    <span class="help-block">@Html.ValidationMessageFor(x => x.PartCategoryId)</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group form-md-line-input form-md-floating-label">
+
+                                    @Html.DropDownListFor(x => x.PartTypeId, Model.PartTypeItems, new { @class = "form-control", id = "ddPartTType" })
+                                    <label id="lblPartType" for="form_control_1">Part Type</label>
+                                    <span class="help-block">@Html.ValidationMessageFor(x => x.PartTypeId)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group form-md-line-input form-md-floating-label">
+                                    <input type="number" id="txtUnitPrice" class="form-control" value="5" min="0" max="100" step="0.1" data-decimals="2">
+                                    <label id="lblUnitPrice" for="form_control_1">Unit Price</label>
+                                    <span class="help-block">@Html.ValidationMessageFor(x => x.UnitPrice)</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group form-md-line-input form-md-floating-label">
+                                    @Html.DropDownListFor(x => x.Currency, Model.CurrencyItems, new { @class = "form-control", id = "ddCurrency" })
+
+                                    <label id="lblCurrency" for="form_control_1">Currency</label>
+                                    <span class="help-block">@Html.ValidationMessageFor(x => x.Currency)</span>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group form-md-line-input form-md-floating-label">
+                                    @Html.DropDownListFor(x => x.UnitOfItem, Model.UnitItems, new { @class = "form-control", id = "ddItemUnit" })
+
+                                    <label id="lblItemUnit" for="form_control_1">Item Unit</label>
+                                    <span class="help-block">@Html.ValidationMessageFor(x => x.UnitOfItem)</span>
+
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-3">
+                                <div class="form-group form-md-line-input form-md-floating-label">
+                                    @Html.DropDownListFor(x => x.MaterialCategoryId, Model.MaterialCategoryItems, new { @class = "form-control", id = "ddMaterialCategoryItems" })
+
+                                    <label id="lblItemUnit" for="form_control_1">Material Category</label>
+                                    <span class="help-block">@Html.ValidationMessageFor(x => x.MaterialCategoryId)</span>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-3">
+                                <div class="form-group form-md-line-input form-md-floating-label">
+
+                                    @Html.TextBoxFor(x => x.Length, new { @class = "form-control", id = "txtLength", type = "number", min = "0", max = "100", step = "0.1" })
+                                    <label id="lblLength" for="form_control_1">Length</label>
+                                    <span class="help-block">@Html.ValidationMessageFor(x => x.Length)</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group form-md-line-input form-md-floating-label">
+                                    @Html.TextBoxFor(x => x.Width, new { @class = "form-control", id = "txtWidth", type = "number", min = "0", max = "100", step = "0.1" })
+                                    <label id="lblWidth" for="form_control_1">Width</label>
+                                    <span class="help-block">@Html.ValidationMessageFor(x => x.Width)</span>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group form-md-line-input form-md-floating-label">
+                                    @Html.TextBoxFor(x => x.Height, new { @class = "form-control", id = "txtHeight", type = "number", min = "0", max = "100", step = "0.1" })
+                                    <label id="lblHeight" for="form_control_1">Height</label>
+                                    <span class="help-block">@Html.ValidationMessageFor(x => x.Height)</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group form-md-line-input form-md-floating-label">
+                                    @Html.TextBoxFor(x => x.Weight, new { @class = "form-control", id = "txtWeight", type = "number", min = "0", max = "100", step = "0.1" })
+                                    <label id="lbWeight" for="form_control_1">Weight</label>
+                                    <span class="help-block">@Html.ValidationMessageFor(x => x.Weight)</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-3">
+                                <div class="form-group form-md-line-input form-md-floating-label">
+                                    @Html.TextBoxFor(x => x.MTBF, new { @class = "form-control", id = "txtMTBF", type = "text" })
+                                    <label id="lblMTBF" for="form_control_1">MTBF in Hour</label>
+                                    <span class="help-block">@Html.ValidationMessageFor(x => x.MTBF)</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group form-md-line-input form-md-floating-label">
+                                    <input id="txtAU" type="text" class="form-control">
+                                    <label id="lblAU" for="form_control_1">AU</label>
+                                    <span class="help-block">Please input part name...</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group form-md-line-input form-md-floating-label">
+                                    @Html.TextBoxFor(x => x.BRF, new { @class = "form-control", id = "txtBRF", type = "number", min = "0", max = "100", step = "0.1" })
+                                    <label id="lblBRF" for="form_control_1">BRF</label>
+                                    <span class="help-block">@Html.ValidationMessageFor(x => x.BRF)</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group form-md-line-input form-md-floating-label">
+                                    @Html.TextBoxFor(x => x.Diameter, new { @class = "form-control", id = "txtDiameter", type = "number", min = "0", max = "100", step = "0.1" })
+                                    <label id="lblDiameter" for="form_control_1">Diameter</label>
+                                    <span class="help-block">@Html.ValidationMessageFor(x => x.Diameter)</span>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group form-md-line-input form-md-floating-label">
+                                    <textarea id="txtPartCharacteristics" class="form-control" rows="3"></textarea>
+                                    <label id="lblPartCharacteristics" for="form_control_1">Part Characteristic</label>
+                                    <span class="help-block">@Html.ValidationMessageFor(x => x.PartCharacteristics)</span>
+                                </div>
+                            </div>
+                        </div>*@
+                    </div>
+
+
+                </div>
+                <!-- END SAMPLE FORM PORTLET-->
+            </div>
+        </div>
+        
+    }
+    
+    </div>

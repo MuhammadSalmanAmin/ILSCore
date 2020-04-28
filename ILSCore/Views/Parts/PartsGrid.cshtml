@@ -1,0 +1,267 @@
+﻿@using ILS.Services.ViewModels 
+<script src="@Url.Content("~/assets/global/plugins/jquery.min.js")"></script>
+<script src="@Url.Content("~/assets/pages/scripts/table-datatables-responsive.min.js")"></script>
+<script src="@Url.Content("~/assets/pages/scripts/ag-grid-enterprise.min.noStyle.js")"></script>
+
+<script src="@Url.Content("~/assets/global/scripts/datatable.js")"></script>
+<script src="@Url.Content("~/assets/global/plugins/datatables/datatables.min.js")"></script>
+<script src="@Url.Content("~/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js")"></script>
+
+<script>
+    $(document).ready(function () {
+
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "positionClass": "toast-top-center",
+            "onclick": null,
+            "showDuration": "1000",
+            "hideDuration": "1000",
+            "timeOut": "1000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+        debugger;
+        @*if (@TempData["Message"]!= null) {
+            toastr.error((@TempData["Message"]), "Success");
+       }*@
+    });
+</script>
+<br />
+<div class="portlet red-sunglo box">
+
+    <div class="portlet-title">
+        <div class="caption">
+            <span class="fa fa-cogs"> Parts</span>
+        </div>
+
+        <div class="actions">
+            <a href="@Url.Action("AddParts", "Parts")" class="btn btn-default btn-sm">
+                <i class="fa fa-plus"></i>
+                Add part
+            </a>
+        </div>
+
+    </div>
+
+    <div class="portlet-body">
+
+        <div class="input-icon right">
+            <i class="fa fa-search fa-spin font-blue"></i>
+            <input type="text" class="form-control" id="filter-text-box" placeholder="Filter data...." oninput="onFilterTextBoxChanged()">
+        </div>
+
+        <br />
+        <div id="myGrid" style="height: 420px; " class="ag-theme-material"></div>
+    </div>
+
+</div>
+
+@if (TempData["Message"] != null)
+{
+@await Component.InvokeAsync("Notification", TempData.Get<NotificationViewModel>("Message"))
+}
+
+<script type="text/javascript" charset="utf-8">
+
+
+    var detailsRenderer = function (params) {
+        var eDiv = document.createElement('div');
+
+        eDiv.className = "btn-group";
+
+        eDiv.innerHTML = '<a href="javascript:;" class="btn-edit btn btn-xs blue"> Edit<i class="fa fa-edit" ></i></a><a href="javascript:;" class="btn-view btn btn-xs green"> View<i class="fa fa-search" ></i></a> <a href="javascript:;" class="btn-del btn btn-xs red"> Delete<i class="fa fa-times" ></i></a>';
+
+        var eButtonEdit = eDiv.querySelectorAll('.btn-edit')[0];
+        var eButtonView = eDiv.querySelectorAll('.btn-view')[0];
+        var eButtonDel = eDiv.querySelectorAll('.btn-del')[0];
+
+       const partId = params.node.data["PartId"];
+
+        eButtonEdit.addEventListener('click', function () {
+               window.location.href = '@Url.Action("Edit", "Parts")?id=' + partId;
+        });
+
+        eButtonView.addEventListener('click', function () {
+               window.location.href = '@Url.Action("Edit", "Parts")?id=' + partId;
+        });
+
+        eButtonDel.addEventListener('click', function () {
+                if (confirm("Are you sure you want to delete????"))
+                {
+                  window.location.href = '@Url.Action("Edit", "Parts")?id=' + partId;
+                }
+            });
+
+        return eDiv;
+    }
+
+
+
+    // specify the columns
+    var columnDefs = [
+        {
+            field: "PartId",
+            filter: 'agTextColumnFilter',
+            filterParams: {
+                filterOptions: ['contains', 'notContains'],
+                debounceMs: 0,
+                caseSensitive: true,
+                suppressAndOrCondition: true
+            },
+            enableRowGroup: true,
+            checkboxSelection: function (params) {
+                // we put checkbox on the name if we are not doing grouping
+                return params.columnApi.getRowGroupColumns().length === 0;
+            }
+            //,
+            //headerCheckboxSelection: function (params) {
+            //    // we put checkbox on the name if we are not doing grouping
+            //    return params.columnApi.getRowGroupColumns().length === 0;
+            //}
+        },
+        {
+            headerName: "Part No",
+            field: "PartNo",
+            filter: 'agTextColumnFilter',
+            filterParams: {
+                filterOptions: ['contains', 'notContains'],
+                debounceMs: 0,
+                caseSensitive: true,
+                suppressAndOrCondition: true
+            },
+            enableRowGroup: true
+        },
+        {
+            headerName: "Part Name",
+            field: "PartName",
+            filter: 'agTextColumnFilter',
+            filterParams: {
+                filterOptions: ['contains', 'notContains'],
+                debounceMs: 0,
+                caseSensitive: true,
+                suppressAndOrCondition: true
+            },
+            enableRowGroup: true
+        },
+        {
+            headerName: "Actions",
+            field: null,
+            cellRenderer: detailsRenderer,
+
+        }
+    ];
+
+    function onFilterTextBoxChanged() {
+        gridOptions.api.setQuickFilter(document.getElementById('filter-text-box').value);
+    }
+
+    var autoGroupColumnDef = {
+        headerName: 'Part Id',
+        minWidth: 170,
+        field: 'PartId',
+        valueGetter: function (params) {
+            if (params.node.group) {
+                return params.node.key;
+            } else {
+                return params.data[params.colDef.field];
+            }
+        },
+        headerCheckboxSelection: true,
+        // headerCheckboxSelectionFilteredOnly: true,
+        //cellRenderer: 'agGroupCellRenderer',
+        cellRendererParams: {
+            checkbox: true,
+        }
+    };
+
+
+    //var gridOptions = {
+    //    defaultColDef: {
+    //        editable: true,
+    //        enableRowGroup: true,
+    //        enablePivot: true,
+    //        enableValue: true,
+    //        sortable: true,
+    //        resizable: true,
+    //        filter: true,
+    //        flex: 1,
+    //        minWidth: 100,
+    //    },
+
+    //    //suppressRowClickSelection: true,
+    //    //groupSelectsChildren: true,
+    //    //rowSelection: 'multiple',
+    //    //rowGroupPanelShow: 'always',
+    //    //pivotPanelShow: 'always',
+    //    //enableRangeSelection: true,
+
+    //    columnDefs: columnDefs,
+    //    paginationAutoPageSize: true,
+    //    pagination: true,
+    //    autoGroupColumnDef: autoGroupColumnDef,
+
+    //      // Header grouping
+    //    suppressDragLeaveHidesColumns: true,
+    //    suppressMakeColumnVisibleAfterUnGroup: true,
+    //    rowGroupPanelShow: 'always',
+    //    //
+    //};
+
+
+    var gridOptions = {
+        defaultColDef: {
+            flex: 1,
+            sortable: true,
+            filter: true,
+            resizable: true
+        },
+
+        columnDefs: columnDefs,
+        rowData: null,
+        //floatingFilter: true,
+
+        onColumnResized: function (params) { },
+
+        alwaysShowVerticalScroll: true,
+
+        // pagination
+        paginationPageSize: 10,
+        pagination: true,
+        //
+        // Header grouping
+        suppressDragLeaveHidesColumns: true,
+        suppressMakeColumnVisibleAfterUnGroup: true,
+        rowGroupPanelShow: 'always',
+        //
+
+    };
+
+    //var allColumnsIds = [];
+    //gridOptions.columnApi.getAllColumns().forEach(function (column) {
+    //    allColumnsIds.push(column.colId);
+    //});
+    //gridOptions.columnApi.autoSizeColumns(allColumnsIds, false);
+
+    // lookup the container we want the Grid to use
+    var eGridDiv = document.querySelector('#myGrid');
+
+
+    // create the grid passing in the div to use together with the columns & data we want to use
+    new agGrid.Grid(eGridDiv, gridOptions);
+
+
+    agGrid.simpleHttpRequest({ url: "http://localhost/ILS/Parts/GetPartsList" }).then(function (data) {
+        gridOptions.api.setRowData(data);
+    });
+
+    function getSelectedRows() {
+        const selectedNodes = gridOptions.api.getSelectedNodes()
+        const selectedData = selectedNodes.map(function (node) { return node.data })
+        const selectedDataStringPresentation = selectedData.map(function (node) { return node.make + ' ' + node.model }).join(', ')
+        alert('Selected nodes: ' + selectedDataStringPresentation);
+    }
+</script>

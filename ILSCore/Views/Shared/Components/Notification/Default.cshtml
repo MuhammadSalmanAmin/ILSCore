@@ -1,0 +1,34 @@
+﻿@using ILS.Services.ViewModels
+@model NotificationViewModel
+
+<script src="@Url.Content("~/assets/global/plugins/jquery.min.js")"></script>
+
+<link rel="stylesheet" href="@Url.Content("~/assets/layouts/layout4/css/select2.min.css")" />
+<link rel="stylesheet" href="@Url.Content("~/assets/global/plugins/bootstrap-toastr/toastr.min.css")" />
+
+
+<script src="@Url.Content("~/assets/global/plugins/bootstrap-toastr/toastr.min.js")"></script>
+<script src="@Url.Content("~/assets/pages/scripts/ui-toastr.min.js")"></script>
+
+<script>
+    $(document).ready(function () {
+
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "positionClass": "toast-top-center",
+            "onclick": null,
+            "showDuration": "1000",
+            "hideDuration": "1000",
+            "timeOut": "1000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+
+        toastr["@Model.MessageType.ToString()"]("@Model.Message", "")
+        });
+</script>
+
