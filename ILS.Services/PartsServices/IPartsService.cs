@@ -27,6 +27,29 @@ namespace ILS.Services
         public abstract List<MimsCPartvendors> GetVendorInfo();
 
         public abstract List<MimsCMcat> GetMaterialcCategoryItems();
+
+        public abstract List<MimsXAp> GetAPItemsList();
+
+        public abstract List<MimsXAc> GetACItemsList();
+
+        public abstract List<MimsXAsc> GetASCItemsList();
+        public abstract List<MimsXMec> GetMECInfo();
+
+        public abstract List<MimsXAnc> GetANCInfo();
+
+        public abstract List<MimsXApp> GetAPPInfo();
+        public abstract List<MimsXCustody> GetCustodyInfo();
+
+        public abstract List<MimsXSmc> GetSMCInfo();
+        public abstract List<MimsXShelflife> GetShelfLifeItems();
+        public abstract List<MimsXDerivative> GetDerivativeItems();
+        public abstract List<MimsXSmic> GetSMICItems();
+
+        public abstract List<MimsXTimeperiod> GetLeadTimeItems();
+        public abstract List<MimsXTss> GetTSSItems();
+        public abstract List<MimsXOsi> GetOSIItems();
+
+        public abstract List<MimsXUom> GetUnitCubeItems();
         public void Dispose()
         {
 

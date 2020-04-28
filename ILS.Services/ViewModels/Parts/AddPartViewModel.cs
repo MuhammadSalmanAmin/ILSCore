@@ -175,7 +175,7 @@ namespace ILS
         public string SMIC { get; set; }
 
         [DisplayName("Lead Time")]
-        public string LeadTime { get; set; }
+        public string LeadTimeId { get; set; }
 
         //[RegularExpression(Regex.NumbersOnly)]
         [DisplayName("ANC")]
@@ -208,10 +208,10 @@ namespace ILS
         public string OldSMIC { get; set; }
 
         [DisplayName("OSI")]
-        public string OSI { get; set; }
+        public string OSIId { get; set; }
 
         [DisplayName("Unit Cube")]
-        public string UnitCube { get; set; }
+        public string UnitCubeId { get; set; }
 
         public string GroupModelId { get; set; }
         public List<GroupInfoViewModel> GroupModel { get; set; }
@@ -224,6 +224,14 @@ namespace ILS
 
         public IEnumerable<SelectListItem> MaterialCategoryItems { get; set; }
 
+        public IEnumerable<SelectListItem> APItems { get; set; }
+        public IEnumerable<SelectListItem> ACItems { get; set; }
+        public IEnumerable<SelectListItem> ASCItems { get; set; }
+        public IEnumerable<SelectListItem> ShelfLifeItems { get; set; }
+        public IEnumerable<SelectListItem> LeadTimeItems { get; set; }
+        public IEnumerable<SelectListItem> OSIItems { get; set; }
+
+        public IEnumerable<SelectListItem> UnitCubeItems { get; set; }
         public List<CageViewModel> CageDetails { get; set; }
 
         public List<CageViewModel> VendorDetails { get; set; }
@@ -255,6 +263,107 @@ namespace ILS
     public class MaterialCategoryViewModel
     {
         public string ID { get; set; }
+        public string Description { get; set; }
+    }
+
+    public class MECViewModel
+    {
+        public string Id { get; set; }
+        public string Description { get; set; }
+    }
+
+    public class APViewModel
+    {
+        public string ID { get; set; }
+        public string Description { get; set; }
+    }
+
+    public class ACViewModel
+    {
+        public string ID { get; set; }
+        public string Description { get; set; }
+    }
+
+    public class ASCViewModel
+    {
+        public string ID { get; set; }
+        public string Description { get; set; }
+    }
+
+    public class ANCViewModel
+    {
+        public string ID { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+    }
+
+    public class APPViewModel
+    {
+        public string ID { get; set; }
+        public string Code { get; set; }
+        public string Description { get; set; }
+    }
+
+    public class CustodyViewModel
+    {
+        public string ID { get; set; }
+        public string Code { get; set; }
+        public string Description { get; set; }
+    }
+
+    public class SMCViewModel
+    {
+        public string ID { get; set; }
+        public string Code { get; set; }
+        public string Description { get; set; }
+    }
+
+    public class ShelfLifeViewModel
+    {
+        public string ID { get; set; }
+        public string Code { get; set; }
+        public string Description { get; set; }
+    }
+
+    public class DerivativeViewModel
+    {
+        public string ID { get; set; }
+        public string Code { get; set; }
+        public string Description { get; set; }
+    }
+
+    public class SMICViewModel
+    {
+        public string ID { get; set; }
+        public string Code { get; set; }
+        public string Description { get; set; }
+    }
+
+    public class TSSViewModel
+    {
+        public string ID { get; set; }
+        public string Code { get; set; }
+        public string Description { get; set; }
+    }
+
+    public class OSIViewModel
+    {
+        public string ID { get; set; }
+        public string Code { get; set; }
+        public string Description { get; set; }
+    }
+
+    public class LeadTimeViewModel
+    {
+        public string ID { get; set; }
+        public string Code { get; set; }
+        public string Description { get; set; }
+    }
+
+    public class UnitCubeViewModel
+    {
+        public string ID { get; set; }
+        public string Code { get; set; }
         public string Description { get; set; }
     }
 }

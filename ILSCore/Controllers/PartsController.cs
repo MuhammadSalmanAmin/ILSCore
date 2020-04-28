@@ -56,17 +56,17 @@ namespace ILS.Controllers
                 {
                     TempData.Put("Message", new NotificationViewModel() { Message = "Part added succesfully.", MessageType = NotificationType.success });
 
-                    var uploads = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads");
-
+                    var folderPath = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads");
                     if (model.PictureInfo.Length > 0)
                     {
-                        var filePath = Path.Combine(uploads, model.PictureInfo.FileName);
+                        var filePath = Path.Combine(folderPath, model.PictureInfo.FileName);
                         using (var fileStream = new FileStream(filePath, FileMode.Create))
                         {
                             model.PictureInfo.CopyToAsync(fileStream);
                         }
                     }
 
+                    model.PictureFileName = model.PictureInfo.FileName;
                    
                     _partService.AddParts(model);
                     return RedirectToAction("Index");
@@ -108,14 +108,56 @@ namespace ILS.Controllers
             {
                 Value = c.ID,
                 Text = c.Description
-
             });
             vm.MaterialCategoryItems = _partService.GetMaterialcCategoryItems().ToViewModel().Select(c => new SelectListItem
             {
                 Value = c.ID,
                 Text = c.Description
-
             });
+
+            vm.APItems = _partService.GetAPItemsList().ToViewModel().Select(c => new SelectListItem
+            {
+                Value = c.ID,
+                Text = c.Description
+            });
+
+            vm.ACItems = _partService.GetACItemsList().ToViewModel().Select(c => new SelectListItem
+            {
+                Value = c.ID,
+                Text = c.Description
+            });
+
+            vm.ASCItems = _partService.GetASCItemsList().ToViewModel().Select(c => new SelectListItem
+            {
+                Value = c.ID,
+                Text = c.Description
+            });
+
+            vm.ShelfLifeItems = _partService.GetShelfLifeItems().ToViewModel().Select(c => new SelectListItem
+            {
+                Value = c.ID,
+                Text = c.Description
+            });
+
+            vm.LeadTimeItems = _partService.GetLeadTimeItems().ToViewModel().Select(c => new SelectListItem
+            {
+                Value = c.ID,
+                Text = c.Description
+            });
+
+            vm.OSIItems = _partService.GetOSIItems().ToViewModel().Select(c => new SelectListItem
+            {
+                Value = c.ID,
+                Text = c.Description
+            });
+
+            vm.UnitCubeItems = _partService.GetUnitCubeItems().ToViewModel().Select(c => new SelectListItem
+            {
+                Value = c.ID,
+                Text = c.Description
+            });
+
+
             return vm;
         }
 
@@ -161,6 +203,54 @@ namespace ILS.Controllers
         public JsonResult GetVendorInfo()
         {
             return Json(new { data = _partService.GetCageInfo().ToViewModel() });
+        }
+
+        [HttpGet]
+        public JsonResult GetMECInfo()
+        {
+            return Json(new { data = _partService.GetMECInfo().ToViewModel() });
+        }
+
+        [HttpGet]
+        public JsonResult GetANCInfo()
+        {
+            return Json(new { data = _partService.GetANCInfo().ToViewModel() });
+        }
+
+        [HttpGet]
+        public JsonResult GetAPPInfo()
+        {
+            return Json(new { data = _partService.GetAPPInfo().ToViewModel() });
+        }
+
+        [HttpGet]
+        public JsonResult GetCustodyInfo()
+        {
+            return Json(new { data = _partService.GetCustodyInfo().ToViewModel() });
+        }
+
+        [HttpGet]
+        public JsonResult GetSMCInfo()
+        {
+            return Json(new { data = _partService.GetSMCInfo().ToViewModel() });
+        }
+
+        [HttpGet]
+        public JsonResult GetDerivativeInfo()
+        {
+            return Json(new { data = _partService.GetDerivativeItems().ToViewModel() });
+        }
+
+        [HttpGet]
+        public JsonResult GetSMICInfo()
+        {
+            return Json(new { data = _partService.GetSMICItems().ToViewModel() });
+        }
+
+        [HttpGet]
+        public JsonResult GetTSSInfo()
+        {
+            return Json(new { data = _partService.GetTSSItems().ToViewModel() });
         }
 
     }

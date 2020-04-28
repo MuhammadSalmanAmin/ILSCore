@@ -217,7 +217,7 @@
                     [5, 15, 20, -1],
                     [5, 15, 20, "All"] // change per page values here
                 ],
-                   "scrollY": 200,
+                "scrollY": 200,
                 // set the initial value
                 "pageLength": 5,
                 "pagingType": "bootstrap_full_number",
@@ -264,10 +264,686 @@
                 $(this).prop("checked", true);
             }
         });
-
-
     }
 
+    var initMECGrid = function () {
+
+        var table = $('#gridMECInfo');
+        table.dataTable(
+            {
+                "language": {
+                    "aria": {
+                        "sortAscending": ": activate to sort column ascending",
+                        "sortDescending": ": activate to sort column descending"
+                    },
+                    "emptyTable": "No data available in table",
+                    "info": "Showing _START_ to _END_ of _TOTAL_ records",
+                    "infoEmpty": "No records found",
+                    "infoFiltered": "(filtered1 from _MAX_ total records)",
+                    "lengthMenu": "Show _MENU_",
+                    "search": "Search:",
+                    "zeroRecords": "No matching records found",
+                    "paginate": {
+                        "previous": "Prev",
+                        "next": "Next",
+                        "last": "Last",
+                        "first": "First"
+                    }
+                },
+
+                "ajax": {
+                    "url": "/Parts/GetMECInfo",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.
+
+                "lengthMenu": [
+                    [5, 15, 20, -1],
+                    [5, 15, 20, "All"] // change per page values here
+                ],
+                "scrollY": 200,
+                // set the initial value
+                "pageLength": 5,
+                "pagingType": "bootstrap_full_number",
+                "columnDefs": [
+                    {  // set default column settings
+                        'orderable': false,
+                        'targets': [0]
+                    },
+                    {
+                        "searchable": false,
+                        "targets": [0]
+                    },
+                    {
+                        "className": "dt-right",
+
+                    },
+                    {
+                        'targets': 0,
+                        'render': function (data, type, row, meta) {
+                            if (type === 'display') {
+                                data = '<label class="mt-checkbox mt-checkbox-single mt-checkbox-outline"><input type="checkbox" class="checkboxes" value="1" /> <span></span></label>';
+                            }
+
+                            return data;
+                        }
+                    }
+                ],
+                "order": [
+                    [1, "asc"]
+                ],
+                "columns": [
+                    { "data": null, "defaultContent": '' },
+                    { "data": "id", "name": "Id", "autoWidth": true },
+                    { "data": "description", "name": "description", "autoWidth": true },
+                ]// set first column as a default sort by asc
+            });
+        table.on('change', 'tbody tr .checkboxes', function () {
+
+            //$(this).parents('tr').toggleClass("active");
+
+            if ($(this).is(":checked")) {
+                $("input").prop("checked", false);
+                $(this).prop("checked", true);
+            }
+        });
+    }
+
+    var initANCGrid = function () {
+
+        var table = $('#gridANCInfo');
+        table.dataTable(
+            {
+                "language": {
+                    "aria": {
+                        "sortAscending": ": activate to sort column ascending",
+                        "sortDescending": ": activate to sort column descending"
+                    },
+                    "emptyTable": "No data available in table",
+                    "info": "Showing _START_ to _END_ of _TOTAL_ records",
+                    "infoEmpty": "No records found",
+                    "infoFiltered": "(filtered1 from _MAX_ total records)",
+                    "lengthMenu": "Show _MENU_",
+                    "search": "Search:",
+                    "zeroRecords": "No matching records found",
+                    "paginate": {
+                        "previous": "Prev",
+                        "next": "Next",
+                        "last": "Last",
+                        "first": "First"
+                    }
+                },
+
+                "ajax": {
+                    "url": "/Parts/GetANCInfo",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.
+
+                "lengthMenu": [
+                    [5, 15, 20, -1],
+                    [5, 15, 20, "All"] // change per page values here
+                ],
+                "scrollY": 200,
+                // set the initial value
+                "pageLength": 5,
+                "pagingType": "bootstrap_full_number",
+                "columnDefs": [
+                    {  // set default column settings
+                        'orderable': false,
+                        'targets': [0]
+                    },
+                    {
+                        "searchable": false,
+                        "targets": [0]
+                    },
+                    {
+                        "className": "dt-right",
+
+                    },
+                    {
+                        'targets': 0,
+                        'render': function (data, type, row, meta) {
+                            if (type === 'display') {
+                                data = '<label class="mt-checkbox mt-checkbox-single mt-checkbox-outline"><input type="checkbox" class="checkboxes" value="1" /> <span></span></label>';
+                            }
+
+                            return data;
+                        }
+                    }
+                ],
+                "order": [
+                    [1, "asc"]
+                ],
+                "columns": [
+                    { "data": null, "defaultContent": '' },
+                    { "data": "id", "name": "Id", "autoWidth": true },
+                    { "data": "name", "name": "Name", "autoWidth": true },
+                    { "data": "description", "name": "Description", "autoWidth": true },
+                ]// set first column as a default sort by asc
+            });
+        table.on('change', 'tbody tr .checkboxes', function () {
+
+            //$(this).parents('tr').toggleClass("active");
+
+            if ($(this).is(":checked")) {
+                $("input").prop("checked", false);
+                $(this).prop("checked", true);
+            }
+        });
+    }
+
+    var initAPPGrid = function () {
+
+        var table = $('#gridAPPInfo');
+        table.dataTable(
+            {
+                "language": {
+                    "aria": {
+                        "sortAscending": ": activate to sort column ascending",
+                        "sortDescending": ": activate to sort column descending"
+                    },
+                    "emptyTable": "No data available in table",
+                    "info": "Showing _START_ to _END_ of _TOTAL_ records",
+                    "infoEmpty": "No records found",
+                    "infoFiltered": "(filtered1 from _MAX_ total records)",
+                    "lengthMenu": "Show _MENU_",
+                    "search": "Search:",
+                    "zeroRecords": "No matching records found",
+                    "paginate": {
+                        "previous": "Prev",
+                        "next": "Next",
+                        "last": "Last",
+                        "first": "First"
+                    }
+                },
+
+                "ajax": {
+                    "url": "/Parts/GetAPPInfo",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.
+
+                "lengthMenu": [
+                    [5, 15, 20, -1],
+                    [5, 15, 20, "All"] // change per page values here
+                ],
+                "scrollY": 200,
+                // set the initial value
+                "pageLength": 5,
+                "pagingType": "bootstrap_full_number",
+                "columnDefs": [
+                    {  // set default column settings
+                        'orderable': false,
+                        'targets': [0]
+                    },
+                    {
+                        "searchable": false,
+                        "targets": [0]
+                    },
+                    {
+                        "className": "dt-right",
+
+                    },
+                    {
+                        'targets': 0,
+                        'render': function (data, type, row, meta) {
+                            if (type === 'display') {
+                                data = '<label class="mt-checkbox mt-checkbox-single mt-checkbox-outline"><input type="checkbox" class="checkboxes" value="1" /> <span></span></label>';
+                            }
+
+                            return data;
+                        }
+                    }
+                ],
+                "order": [
+                    [1, "asc"]
+                ],
+                "columns": [
+                    { "data": null, "defaultContent": '' },
+                    { "data": "id", "name": "Id", "autoWidth": true },
+                    { "data": "code", "name": "Code", "autoWidth": true },
+                    { "data": "description", "Description": "Description", "autoWidth": true },
+                ]// set first column as a default sort by asc
+            });
+        table.on('change', 'tbody tr .checkboxes', function () {
+
+            //$(this).parents('tr').toggleClass("active");
+
+            if ($(this).is(":checked")) {
+                $("input").prop("checked", false);
+                $(this).prop("checked", true);
+            }
+        });
+    }
+
+    var initCustodyGrid = function () {
+
+        var table = $('#gridCustodyInfo');
+        table.dataTable(
+            {
+                "language": {
+                    "aria": {
+                        "sortAscending": ": activate to sort column ascending",
+                        "sortDescending": ": activate to sort column descending"
+                    },
+                    "emptyTable": "No data available in table",
+                    "info": "Showing _START_ to _END_ of _TOTAL_ records",
+                    "infoEmpty": "No records found",
+                    "infoFiltered": "(filtered1 from _MAX_ total records)",
+                    "lengthMenu": "Show _MENU_",
+                    "search": "Search:",
+                    "zeroRecords": "No matching records found",
+                    "paginate": {
+                        "previous": "Prev",
+                        "next": "Next",
+                        "last": "Last",
+                        "first": "First"
+                    }
+                },
+
+                "ajax": {
+                    "url": "/Parts/GetCustodyInfo",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.
+
+                "lengthMenu": [
+                    [5, 15, 20, -1],
+                    [5, 15, 20, "All"] // change per page values here
+                ],
+                "scrollY": 200,
+                // set the initial value
+                "pageLength": 5,
+                "pagingType": "bootstrap_full_number",
+                "columnDefs": [
+                    {  // set default column settings
+                        'orderable': false,
+                        'targets': [0]
+                    },
+                    {
+                        "searchable": false,
+                        "targets": [0]
+                    },
+                    {
+                        "className": "dt-right",
+
+                    },
+                    {
+                        'targets': 0,
+                        'render': function (data, type, row, meta) {
+                            if (type === 'display') {
+                                data = '<label class="mt-checkbox mt-checkbox-single mt-checkbox-outline"><input type="checkbox" class="checkboxes" value="1" /> <span></span></label>';
+                            }
+
+                            return data;
+                        }
+                    }
+                ],
+                "order": [
+                    [1, "asc"]
+                ],
+                "columns": [
+                    { "data": null, "defaultContent": '' },
+                    { "data": "id", "name": "Id", "autoWidth": true },
+                    { "data": "code", "name": "Code", "autoWidth": true },
+                    { "data": "description", "Description": "Description", "autoWidth": true },
+                ]// set first column as a default sort by asc
+            });
+        table.on('change', 'tbody tr .checkboxes', function () {
+
+            //$(this).parents('tr').toggleClass("active");
+
+            if ($(this).is(":checked")) {
+                $("input").prop("checked", false);
+                $(this).prop("checked", true);
+            }
+        });
+    }
+
+    var initSMCGrid = function () {
+
+        var table = $('#gridSmcInfo');
+        table.dataTable(
+            {
+                "language": {
+                    "aria": {
+                        "sortAscending": ": activate to sort column ascending",
+                        "sortDescending": ": activate to sort column descending"
+                    },
+                    "emptyTable": "No data available in table",
+                    "info": "Showing _START_ to _END_ of _TOTAL_ records",
+                    "infoEmpty": "No records found",
+                    "infoFiltered": "(filtered1 from _MAX_ total records)",
+                    "lengthMenu": "Show _MENU_",
+                    "search": "Search:",
+                    "zeroRecords": "No matching records found",
+                    "paginate": {
+                        "previous": "Prev",
+                        "next": "Next",
+                        "last": "Last",
+                        "first": "First"
+                    }
+                },
+
+                "ajax": {
+                    "url": "/Parts/GetSMCInfo",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.
+
+                "lengthMenu": [
+                    [5, 15, 20, -1],
+                    [5, 15, 20, "All"] // change per page values here
+                ],
+                "scrollY": 200,
+                // set the initial value
+                "pageLength": 5,
+                "pagingType": "bootstrap_full_number",
+                "columnDefs": [
+                    {  // set default column settings
+                        'orderable': false,
+                        'targets': [0]
+                    },
+                    {
+                        "searchable": false,
+                        "targets": [0]
+                    },
+                    {
+                        "className": "dt-right",
+
+                    },
+                    {
+                        'targets': 0,
+                        'render': function (data, type, row, meta) {
+                            if (type === 'display') {
+                                data = '<label class="mt-checkbox mt-checkbox-single mt-checkbox-outline"><input type="checkbox" class="checkboxes" value="1" /> <span></span></label>';
+                            }
+
+                            return data;
+                        }
+                    }
+                ],
+                "order": [
+                    [1, "asc"]
+                ],
+                "columns": [
+                    { "data": null, "defaultContent": '' },
+                    { "data": "id", "name": "Id", "autoWidth": true },
+                    { "data": "code", "name": "Code", "autoWidth": true },
+                    { "data": "description", "Description": "Description", "autoWidth": true },
+                ]// set first column as a default sort by asc
+            });
+        table.on('change', 'tbody tr .checkboxes', function () {
+
+            //$(this).parents('tr').toggleClass("active");
+
+            if ($(this).is(":checked")) {
+                $("input").prop("checked", false);
+                $(this).prop("checked", true);
+            }
+        });
+    }
+
+    var initDerivativeGrid = function () {
+
+        var table = $('#gridDerivativeInfo');
+        table.dataTable(
+            {
+                "language": {
+                    "aria": {
+                        "sortAscending": ": activate to sort column ascending",
+                        "sortDescending": ": activate to sort column descending"
+                    },
+                    "emptyTable": "No data available in table",
+                    "info": "Showing _START_ to _END_ of _TOTAL_ records",
+                    "infoEmpty": "No records found",
+                    "infoFiltered": "(filtered1 from _MAX_ total records)",
+                    "lengthMenu": "Show _MENU_",
+                    "search": "Search:",
+                    "zeroRecords": "No matching records found",
+                    "paginate": {
+                        "previous": "Prev",
+                        "next": "Next",
+                        "last": "Last",
+                        "first": "First"
+                    }
+                },
+
+                "ajax": {
+                    "url": "/Parts/GetDerivativeInfo",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.
+
+                "lengthMenu": [
+                    [5, 15, 20, -1],
+                    [5, 15, 20, "All"] // change per page values here
+                ],
+                "scrollY": 200,
+                // set the initial value
+                "pageLength": 5,
+                "pagingType": "bootstrap_full_number",
+                "columnDefs": [
+                    {  // set default column settings
+                        'orderable': false,
+                        'targets': [0]
+                    },
+                    {
+                        "searchable": false,
+                        "targets": [0]
+                    },
+                    {
+                        "className": "dt-right",
+
+                    },
+                    {
+                        'targets': 0,
+                        'render': function (data, type, row, meta) {
+                            if (type === 'display') {
+                                data = '<label class="mt-checkbox mt-checkbox-single mt-checkbox-outline"><input type="checkbox" class="checkboxes" value="1" /> <span></span></label>';
+                            }
+
+                            return data;
+                        }
+                    }
+                ],
+                "order": [
+                    [1, "asc"]
+                ],
+                "columns": [
+                    { "data": null, "defaultContent": '' },
+                    { "data": "id", "name": "Id", "autoWidth": true },
+                    { "data": "code", "name": "Code", "autoWidth": true },
+                    { "data": "description", "Description": "Description", "autoWidth": true },
+                ]// set first column as a default sort by asc
+            });
+        table.on('change', 'tbody tr .checkboxes', function () {
+
+            //$(this).parents('tr').toggleClass("active");
+
+            if ($(this).is(":checked")) {
+                $("input").prop("checked", false);
+                $(this).prop("checked", true);
+            }
+        });
+    }
+
+    var initSMICGrid = function () {
+
+        var table = $('#gridSmicInfo');
+        table.dataTable(
+            {
+                "language": {
+                    "aria": {
+                        "sortAscending": ": activate to sort column ascending",
+                        "sortDescending": ": activate to sort column descending"
+                    },
+                    "emptyTable": "No data available in table",
+                    "info": "Showing _START_ to _END_ of _TOTAL_ records",
+                    "infoEmpty": "No records found",
+                    "infoFiltered": "(filtered1 from _MAX_ total records)",
+                    "lengthMenu": "Show _MENU_",
+                    "search": "Search:",
+                    "zeroRecords": "No matching records found",
+                    "paginate": {
+                        "previous": "Prev",
+                        "next": "Next",
+                        "last": "Last",
+                        "first": "First"
+                    }
+                },
+
+                "ajax": {
+                    "url": "/Parts/GetSMICInfo",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.
+
+                "lengthMenu": [
+                    [5, 15, 20, -1],
+                    [5, 15, 20, "All"] // change per page values here
+                ],
+                "scrollY": 200,
+                // set the initial value
+                "pageLength": 5,
+                "pagingType": "bootstrap_full_number",
+                "columnDefs": [
+                    {  // set default column settings
+                        'orderable': false,
+                        'targets': [0]
+                    },
+                    {
+                        "searchable": false,
+                        "targets": [0]
+                    },
+                    {
+                        "className": "dt-right",
+
+                    },
+                    {
+                        'targets': 0,
+                        'render': function (data, type, row, meta) {
+                            if (type === 'display') {
+                                data = '<label class="mt-checkbox mt-checkbox-single mt-checkbox-outline"><input type="checkbox" class="checkboxes" value="1" /> <span></span></label>';
+                            }
+
+                            return data;
+                        }
+                    }
+                ],
+                "order": [
+                    [1, "asc"]
+                ],
+                "columns": [
+                    { "data": null, "defaultContent": '' },
+                    { "data": "id", "name": "Id", "autoWidth": true },
+                    { "data": "code", "name": "Code", "autoWidth": true },
+                    { "data": "description", "Description": "Description", "autoWidth": true },
+                ]// set first column as a default sort by asc
+            });
+        table.on('change', 'tbody tr .checkboxes', function () {
+
+            //$(this).parents('tr').toggleClass("active");
+
+            if ($(this).is(":checked")) {
+                $("input").prop("checked", false);
+                $(this).prop("checked", true);
+            }
+        });
+    }
+
+    var initTSSGrid = function () {
+
+        var table = $('#gridTssInfo');
+        table.dataTable(
+            {
+                "language": {
+                    "aria": {
+                        "sortAscending": ": activate to sort column ascending",
+                        "sortDescending": ": activate to sort column descending"
+                    },
+                    "emptyTable": "No data available in table",
+                    "info": "Showing _START_ to _END_ of _TOTAL_ records",
+                    "infoEmpty": "No records found",
+                    "infoFiltered": "(filtered1 from _MAX_ total records)",
+                    "lengthMenu": "Show _MENU_",
+                    "search": "Search:",
+                    "zeroRecords": "No matching records found",
+                    "paginate": {
+                        "previous": "Prev",
+                        "next": "Next",
+                        "last": "Last",
+                        "first": "First"
+                    }
+                },
+
+                "ajax": {
+                    "url": "/Parts/GetTSSInfo",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.
+
+                "lengthMenu": [
+                    [5, 15, 20, -1],
+                    [5, 15, 20, "All"] // change per page values here
+                ],
+                "scrollY": 200,
+                // set the initial value
+                "pageLength": 5,
+                "pagingType": "bootstrap_full_number",
+                "columnDefs": [
+                    {  // set default column settings
+                        'orderable': false,
+                        'targets': [0]
+                    },
+                    {
+                        "searchable": false,
+                        "targets": [0]
+                    },
+                    {
+                        "className": "dt-right",
+
+                    },
+                    {
+                        'targets': 0,
+                        'render': function (data, type, row, meta) {
+                            if (type === 'display') {
+                                data = '<label class="mt-checkbox mt-checkbox-single mt-checkbox-outline"><input type="checkbox" class="checkboxes" value="1" /> <span></span></label>';
+                            }
+
+                            return data;
+                        }
+                    }
+                ],
+                "order": [
+                    [1, "asc"]
+                ],
+                "columns": [
+                    { "data": null, "defaultContent": '' },
+                    { "data": "id", "name": "Id", "autoWidth": true },
+                    { "data": "code", "name": "Code", "autoWidth": true },
+                    { "data": "description", "Description": "Description", "autoWidth": true },
+                ]// set first column as a default sort by asc
+            });
+        table.on('change', 'tbody tr .checkboxes', function () {
+
+            //$(this).parents('tr').toggleClass("active");
+
+            if ($(this).is(":checked")) {
+                $("input").prop("checked", false);
+                $(this).prop("checked", true);
+            }
+        });
+    }
 </script>
 
 <div class="portlet portlet-sortable light bordered bg-inverse">
@@ -475,8 +1151,8 @@
                             <div class="col-md-4" style="text-align:center">
                                 <div class="fileinput fileinput-new" data-provides="fileinput">
                                     <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; line-height: 150px;">
-                                       
-                                        <img src="@Model.PictureFileName"/>
+
+                                        <img src="@Model.PictureFileName" />
                                     </div>
                                     <div>
                                         <span class="btn red btn-outline btn-file">
@@ -695,39 +1371,25 @@
                             </div>
 
                             <div class="col-md-4">
-                                <div class="form-group form-md-line-input form-md-floating-label">
-                                    <div class="input-group">
-                                        <div class="input-group-control">
-                                            @Html.TextBoxFor(x => x.AP, new { @class = "form-control", id = "txtAP" })
-                                            <label id="lblAP" for="form_control_1">AP</label>
-                                            <span class="help-block">Please select new NSN...</span>
-                                        </div>
-                                        <span class="input-group-btn btn-left">
-                                            <button class="btn green btn-xs" data-toggle="modal" id="btnModalAP" type="button">
-                                                <i class="glyphicon glyphicon-search"> </i>
-                                            </button>
-                                        </span>
-                                    </div>
-                                </div>
 
+                                <div class="form-group form-md-line-input form-md-floating-label">
+
+                                    @Html.DropDownListFor(x => x.AP, Model.APItems, new { @class = "form-control", id = "ddAPItems" })
+                                    <label id="lblPartCategory" for="form_control_1">AP</label>
+                                    <span class="help-block">@Html.ValidationMessageFor(x => x.AP)</span>
+
+
+                                </div>
                             </div>
 
                             <div class="col-md-4">
                                 <div class="form-group form-md-line-input form-md-floating-label">
-                                    <div class="input-group">
-                                        <div class="input-group-control">
-                                            @Html.TextBoxFor(x => x.AC, new { @class = "form-control", id = "txtAC" })
-                                            <label id="lblAC" for="form_control_1">AC</label>
-                                            <span class="help-block">Please select new NSN...</span>
-                                        </div>
-                                        <span class="input-group-btn btn-left">
-                                            <button class="btn green btn-xs" data-toggle="modal" id="btnModalAC" type="button">
-                                                <i class="glyphicon glyphicon-search"> </i>
-                                            </button>
-                                        </span>
-                                    </div>
-                                </div>
 
+                                    @Html.DropDownListFor(x => x.AC, Model.ACItems, new { @class = "form-control", id = "ddACItems" })
+                                    <label id="lblPartCategory" for="form_control_1">AC</label>
+                                    <span class="help-block">@Html.ValidationMessageFor(x => x.AC)</span>
+
+                                </div>
                             </div>
                         </div>
 
@@ -753,18 +1415,11 @@
 
                             <div class="col-md-3">
                                 <div class="form-group form-md-line-input form-md-floating-label">
-                                    <div class="input-group">
-                                        <div class="input-group-control">
-                                            @Html.TextBoxFor(x => x.ASC, new { @class = "form-control", id = "txtASC" })
-                                            <label id="lblASC" for="form_control_1">ASC</label>
-                                            <span class="help-block">Please select new NSN...</span>
-                                        </div>
-                                        <span class="input-group-btn btn-left">
-                                            <button class="btn green btn-xs" data-toggle="modal" id="btnModalASC" type="button">
-                                                <i class="glyphicon glyphicon-search"> </i>
-                                            </button>
-                                        </span>
-                                    </div>
+
+                                    @Html.DropDownListFor(x => x.ASC, Model.ASCItems, new { @class = "form-control", id = "ddASCItems" })
+                                    <label id="lblPartCategory" for="form_control_1">AC</label>
+                                    <span class="help-block">@Html.ValidationMessageFor(x => x.ASC)</span>
+
                                 </div>
 
                             </div>
@@ -775,7 +1430,7 @@
                                         <div class="input-group-control">
                                             @Html.TextBoxFor(x => x.ANC, new { @class = "form-control", id = "txtANC" })
                                             <label id="lblANC" for="form_control_1">ANC</label>
-                                            <span class="help-block">Please select new NSN...</span>
+                                            <span class="help-block">Please select ANC...</span>
                                         </div>
                                         <span class="input-group-btn btn-left">
                                             <button class="btn green btn-xs" data-toggle="modal" id="btnModalANC" type="button">
@@ -793,7 +1448,7 @@
                                         <div class="input-group-control">
                                             @Html.TextBoxFor(x => x.APP, new { @class = "form-control", id = "txtAPP" })
                                             <label id="lblAPP" for="form_control_1">APP</label>
-                                            <span class="help-block">Please select new NSN...</span>
+                                            <span class="help-block">Please select new APP...</span>
                                         </div>
                                         <span class="input-group-btn btn-left">
                                             <button class="btn green btn-xs" data-toggle="modal" id="btnModalAPP" type="button">
@@ -813,12 +1468,12 @@
                                 <div class="form-group form-md-line-input form-md-floating-label">
                                     <div class="input-group">
                                         <div class="input-group-control">
-                                            @Html.TextBoxFor(x => x.CustodyId, new { @class = "form-control", id = "txtCustodyId" })
+                                            @Html.TextBoxFor(x => x.CustodyId, new { @class = "form-control", id = "txtCustody" })
                                             <label id="lblCustodyId" for="form_control_1">Custody</label>
                                             <span class="help-block">Please select new NSN...</span>
                                         </div>
                                         <span class="input-group-btn btn-left">
-                                            <button class="btn green btn-xs" data-toggle="modal" id="btnModalCustodyId" type="button">
+                                            <button class="btn green btn-xs" data-toggle="modal" id="btnModalCustody" type="button">
                                                 <i class="glyphicon glyphicon-search"> </i>
                                             </button>
                                         </span>
@@ -865,18 +1520,11 @@
 
                             <div class="col-md-3">
                                 <div class="form-group form-md-line-input form-md-floating-label">
-                                    <div class="input-group">
-                                        <div class="input-group-control">
-                                            @Html.TextBoxFor(x => x.ShelfLifeId, new { @class = "form-control", id = "txtShelfLife" })
-                                            <label id="lblShelfLife" for="form_control_1">Shelf Life</label>
-                                            <span class="help-block">Please select new NSN...</span>
-                                        </div>
-                                        <span class="input-group-btn btn-left">
-                                            <button class="btn green btn-xs" data-toggle="modal" id="btnModalShelfLife" type="button">
-                                                <i class="glyphicon glyphicon-search"> </i>
-                                            </button>
-                                        </span>
-                                    </div>
+
+                                    @Html.DropDownListFor(x => x.ShelfLifeId, Model.ShelfLifeItems, new { @class = "form-control", id = "ddShelfLifeItems" })
+                                    <label id="lblShelfLife" for="form_control_1">Shelf Life</label>
+                                    <span class="help-block">@Html.ValidationMessageFor(x => x.ShelfLifeItems)</span>
+
                                 </div>
 
                             </div>
@@ -891,7 +1539,7 @@
                                         <div class="input-group-control">
                                             @Html.TextBoxFor(x => x.Derivative, new { @class = "form-control", id = "txtDerivative" })
                                             <label id="lblDerivative" for="form_control_1">Derivative</label>
-                                            <span class="help-block">Please select new NSN...</span>
+                                            <span class="help-block">Please select new Derivative...</span>
                                         </div>
                                         <span class="input-group-btn btn-left">
                                             <button class="btn green btn-xs" data-toggle="modal" id="btnModalDerivative" type="button">
@@ -923,19 +1571,13 @@
 
                             <div class="col-md-3">
                                 <div class="form-group form-md-line-input form-md-floating-label">
-                                    <div class="input-group">
-                                        <div class="input-group-control">
-                                            @Html.TextBoxFor(x => x.LeadTime, new { @class = "form-control", id = "txtLeadTime" })
-                                            <label id="lblLeadTime" for="form_control_1">Lead Time</label>
-                                            <span class="help-block">Please select new NSN...</span>
-                                        </div>
-                                        <span class="input-group-btn btn-left">
-                                            <button class="btn green btn-xs" data-toggle="modal" id="btnModalLeadTime" type="button">
-                                                <i class="glyphicon glyphicon-search"> </i>
-                                            </button>
-                                        </span>
-                                    </div>
+
+                                    @Html.DropDownListFor(x => x.LeadTimeId, Model.LeadTimeItems, new { @class = "form-control", id = "ddLeadTimeItems" })
+                                    <label id="lblShelfLife" for="form_control_1">Lead Time</label>
+                                    <span class="help-block">@Html.ValidationMessageFor(x => x.LeadTimeId)</span>
+
                                 </div>
+
 
                             </div>
 
@@ -990,38 +1632,22 @@
 
                             <div class="col-md-3">
                                 <div class="form-group form-md-line-input form-md-floating-label">
-                                    <div class="input-group">
-                                        <div class="input-group-control">
-                                            @Html.TextBoxFor(x => x.OSI, new { @class = "form-control", id = "txtOSI" })
-                                            <label id="lblOSI" for="form_control_1">OSI</label>
-                                            <span class="help-block">Please select new NSN...</span>
-                                        </div>
-                                        <span class="input-group-btn btn-left">
-                                            <button class="btn green btn-xs" data-toggle="modal" id="btnModalOSI" type="button">
-                                                <i class="glyphicon glyphicon-search"> </i>
-                                            </button>
-                                        </span>
-                                    </div>
-                                </div>
 
+                                    @Html.DropDownListFor(x => x.OSIId, Model.OSIItems, new { @class = "form-control", id = "ddOSIItems" })
+                                    <label id="lblOSI" for="form_control_1">OSI</label>
+                                    <span class="help-block">@Html.ValidationMessageFor(x => x.OSIId)</span>
+
+                                </div>
                             </div>
 
                             <div class="col-md-3">
                                 <div class="form-group form-md-line-input form-md-floating-label">
-                                    <div class="input-group">
-                                        <div class="input-group-control">
-                                            @Html.TextBoxFor(x => x.UnitCube, new { @class = "form-control", id = "txtUnitCube" })
-                                            <label id="lblUnitCube" for="form_control_1">Unit Cube</label>
-                                            <span class="help-block">Please select new NSN...</span>
-                                        </div>
-                                        <span class="input-group-btn btn-left">
-                                            <button class="btn green btn-xs" data-toggle="modal" id="btnModalUnitCube" type="button">
-                                                <i class="glyphicon glyphicon-search"> </i>
-                                            </button>
-                                        </span>
-                                    </div>
-                                </div>
 
+                                    @Html.DropDownListFor(x => x.UnitCubeId, Model.UnitCubeItems, new { @class = "form-control", id = "ddUnitCubeItems" })
+                                    <label id="lblUnitCube" for="form_control_1">OSI</label>
+                                    <span class="help-block">@Html.ValidationMessageFor(x => x.UnitCubeId)</span>
+
+                                </div>
                             </div>
 
                         </div>
@@ -1138,6 +1764,145 @@
                 </button>
             </div>
         </div>
+
+
+        <div id="mecData" class="modal fade" tabindex="-1" data-width="760">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            </div>
+            <div class="modal-body">
+                @Html.Partial("PartMECView", Model)
+            </div>
+            <div class="modal-footer">
+                <button type="submit" data-dismiss="modal" id="btnMecSubmit" class="btn green-meadow">
+                    <i class="glyphicon glyphicon-ok"> </i>Submit
+                </button>
+                <button type="submit" class="btn red" data-dismiss="modal">
+                    <i class="glyphicon glyphicon-remove"> </i>Cancel
+                </button>
+            </div>
+        </div>
+
+
+        <div id="ancData" class="modal fade" tabindex="-1" data-width="760">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            </div>
+            <div class="modal-body">
+                @Html.Partial("ANCView", Model)
+            </div>
+            <div class="modal-footer">
+                <button type="submit" data-dismiss="modal" id="btnANCSubmit" class="btn green-meadow">
+                    <i class="glyphicon glyphicon-ok"> </i>Submit
+                </button>
+                <button type="submit" class="btn red" data-dismiss="modal">
+                    <i class="glyphicon glyphicon-remove"> </i>Cancel
+                </button>
+            </div>
+        </div>
+
+        <div id="appData" class="modal fade" tabindex="-1" data-width="760">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            </div>
+            <div class="modal-body">
+                @Html.Partial("APPView", Model)
+            </div>
+            <div class="modal-footer">
+                <button type="submit" data-dismiss="modal" id="btnAPPSubmit" class="btn green-meadow">
+                    <i class="glyphicon glyphicon-ok"> </i>Submit
+                </button>
+                <button type="submit" class="btn red" data-dismiss="modal">
+                    <i class="glyphicon glyphicon-remove"> </i>Cancel
+                </button>
+            </div>
+        </div>
+
+        <div id="custodyData" class="modal fade" tabindex="-1" data-width="760">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            </div>
+            <div class="modal-body">
+                @Html.Partial("CustodyView", Model)
+            </div>
+            <div class="modal-footer">
+                <button type="submit" data-dismiss="modal" id="btnCustodySubmit" class="btn green-meadow">
+                    <i class="glyphicon glyphicon-ok"> </i>Submit
+                </button>
+                <button type="submit" class="btn red" data-dismiss="modal">
+                    <i class="glyphicon glyphicon-remove"> </i>Cancel
+                </button>
+            </div>
+        </div>
+
+        <div id="smcData" class="modal fade" tabindex="-1" data-width="760">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            </div>
+            <div class="modal-body">
+                @Html.Partial("SMCView", Model)
+            </div>
+            <div class="modal-footer">
+                <button type="submit" data-dismiss="modal" id="btnSmcSubmit" class="btn green-meadow">
+                    <i class="glyphicon glyphicon-ok"> </i>Submit
+                </button>
+                <button type="submit" class="btn red" data-dismiss="modal">
+                    <i class="glyphicon glyphicon-remove"> </i>Cancel
+                </button>
+            </div>
+        </div>
+
+        <div id="derivativeData" class="modal fade" tabindex="-1" data-width="760">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            </div>
+            <div class="modal-body">
+                @Html.Partial("DerivativeView", Model)
+            </div>
+            <div class="modal-footer">
+                <button type="submit" data-dismiss="modal" id="btnDerivativeSubmit" class="btn green-meadow">
+                    <i class="glyphicon glyphicon-ok"> </i>Submit
+                </button>
+                <button type="submit" class="btn red" data-dismiss="modal">
+                    <i class="glyphicon glyphicon-remove"> </i>Cancel
+                </button>
+            </div>
+        </div>
+
+        <div id="smicData" class="modal fade" tabindex="-1" data-width="760">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            </div>
+            <div class="modal-body">
+                @Html.Partial("SMICView", Model)
+            </div>
+            <div class="modal-footer">
+                <button type="submit" data-dismiss="modal" id="btnSmicSubmit" class="btn green-meadow">
+                    <i class="glyphicon glyphicon-ok"> </i>Submit
+                </button>
+                <button type="submit" class="btn red" data-dismiss="modal">
+                    <i class="glyphicon glyphicon-remove"> </i>Cancel
+                </button>
+            </div>
+        </div>
+
+
+        <div id="tssData" class="modal fade" tabindex="-1" data-width="760">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            </div>
+            <div class="modal-body">
+                @Html.Partial("TSSView", Model)
+            </div>
+            <div class="modal-footer">
+                <button type="submit" data-dismiss="modal" id="btnTssSubmit" class="btn green-meadow">
+                    <i class="glyphicon glyphicon-ok"> </i>Submit
+                </button>
+                <button type="submit" class="btn red" data-dismiss="modal">
+                    <i class="glyphicon glyphicon-remove"> </i>Cancel
+                </button>
+            </div>
+        </div>
     }
 
 
@@ -1154,6 +1919,14 @@
         initGroupInfoGrid();
         initCageGrid();
         initVendorGrid();
+        initMECGrid();
+        initANCGrid();
+        initAPPGrid();
+        initCustodyGrid();
+        initSMCGrid();
+        initDerivativeGrid();
+        initSMICGrid();
+        initTSSGrid();
 
         $("#showGroupModal").click(function () {
             $("#groupData").modal('show');
@@ -1166,6 +1939,38 @@
 
         $("#btnModalVendor").click(function () {
             $("#vendorData").modal('show');
+        });
+
+        $("#btnModalMEC").click(function () {
+            $("#mecData").modal('show');
+        });
+
+        $("#btnModalANC").click(function () {
+            $("#ancData").modal('show');
+        });
+
+        $("#btnModalAPP").click(function () {
+            $("#appData").modal('show');
+        });
+
+        $("#btnModalCustody").click(function () {
+            $("#custodyData").modal('show');
+        });
+
+        $("#btnModalSMC").click(function () {
+            $("#smcData").modal('show');
+        });
+
+        $("#btnModalDerivative").click(function () {
+            $("#derivativeData").modal('show');
+        });
+
+        $("#btnModalSMIC").click(function () {
+            $("#smicData").modal('show');
+        });
+
+        $("#btnModalTSS").click(function () {
+            $("#tssData").modal('show');
         });
 
         $("input").change(function (e) {
@@ -1194,9 +1999,9 @@
 
     $("#btnGroupSubmit").on('click', function () {
         var record = "";
-        
+
         var nothingChecked = $('input[type=checkbox]:checked').length;
-        if (nothingChecked===1) {
+        if (nothingChecked === 1) {
             $("#gridGroupInfo input[type=checkbox]:checked").each(function () {
                 var row = $(this).parent().closest('tr');
                 record = {
@@ -1244,7 +2049,7 @@
 
             $('#cageData').modal("toggle")
         } else {
-               toastr.error("Please select a record", "Error");
+            toastr.error("Please select a record", "Error");
         }
 
         return false;
@@ -1252,6 +2057,8 @@
 
     $("#btnVendorSubmit").on('click', function () {
         var record = "";
+
+        debugger;
         var nothingChecked = $('#gridVendorInfo input[type=checkbox]:checked').length;
         if (nothingChecked === 1) {
             $("#gridVendorInfo input[type=checkbox]:checked").each(function () {
@@ -1273,6 +2080,182 @@
         } else {
             toastr.error("Please select a record", "Error");
         }
+        return false;
+    });
+
+    $("#btnMECSubmit").on('click', function () {
+        var record = "";
+        var nothingChecked = $('#gridMECInfo input[type=checkbox]:checked').length;
+        if (nothingChecked === 1) {
+            $("#gridMECInfo input[type=checkbox]:checked").each(function () {
+                var row = $(this).parent().closest('tr');
+                record = {
+                    'id': row.find('td:nth-child(2)').text().trim(),
+                };
+            });
+
+            $("#txtMEC").removeClass("form-control").addClass("form-control edited");
+            $("#txtMEC").val(record.id);
+
+            $('#mecData').modal("toggle")
+        } else {
+            toastr.error("Please select a record", "Error");
+        }
+
+        return false;
+    });
+
+    $("#btnANCSubmit").on('click', function () {
+        var record = "";
+        var nothingChecked = $('#gridANCInfo input[type=checkbox]:checked').length;
+        if (nothingChecked === 1) {
+            $("#gridANCInfo input[type=checkbox]:checked").each(function () {
+                var row = $(this).parent().closest('tr');
+                record = {
+                    'id': row.find('td:nth-child(2)').text().trim(),
+                };
+            });
+
+            $("#txtANC").removeClass("form-control").addClass("form-control edited");
+            $("#txtANC").val(record.id);
+
+            $('#ancData').modal("toggle")
+        } else {
+            toastr.error("Please select a record", "Error");
+        }
+
+        return false;
+    });
+
+    $("#btnAPPSubmit").on('click', function () {
+        var record = "";
+        var nothingChecked = $('#gridAPPInfo input[type=checkbox]:checked').length;
+        if (nothingChecked === 1) {
+            $("#gridAPPInfo input[type=checkbox]:checked").each(function () {
+                var row = $(this).parent().closest('tr');
+                record = {
+                    'id': row.find('td:nth-child(2)').text().trim(),
+                };
+            });
+
+            $("#txtAPP").removeClass("form-control").addClass("form-control edited");
+            $("#txtAPP").val(record.id);
+
+            $('#appData').modal("toggle")
+        } else {
+            toastr.error("Please select a record", "Error");
+        }
+
+        return false;
+    });
+
+    $("#btnCustodySubmit").on('click', function () {
+        var record = "";
+        var nothingChecked = $('#gridCustodyInfo input[type=checkbox]:checked').length;
+        if (nothingChecked === 1) {
+            $("#gridCustodyInfo input[type=checkbox]:checked").each(function () {
+                var row = $(this).parent().closest('tr');
+                record = {
+                    'id': row.find('td:nth-child(2)').text().trim(),
+                };
+            });
+
+            $("#txtCustody").removeClass("form-control").addClass("form-control edited");
+            $("#txtCustody").val(record.id);
+
+            $('#custodyData').modal("toggle")
+        } else {
+            toastr.error("Please select a record", "Error");
+        }
+
+        return false;
+    });
+
+    $("#btnSmcSubmit").on('click', function () {
+        var record = "";
+        var nothingChecked = $('#gridSmcInfo input[type=checkbox]:checked').length;
+        if (nothingChecked === 1) {
+            $("#gridSmcInfo input[type=checkbox]:checked").each(function () {
+                var row = $(this).parent().closest('tr');
+                record = {
+                    'id': row.find('td:nth-child(2)').text().trim(),
+                };
+            });
+
+            $("#txtSMC").removeClass("form-control").addClass("form-control edited");
+            $("#txtSMC").val(record.id);
+            $('#smcData').modal("toggle")
+
+        } else {
+            toastr.error("Please select a record", "Error");
+        }
+
+        return false;
+    });
+
+    $("#btnDerivativeSubmit").on('click', function () {
+        var record = "";
+        var nothingChecked = $('#gridDerivativeInfo input[type=checkbox]:checked').length;
+        if (nothingChecked === 1) {
+            $("#gridDerivativeInfo input[type=checkbox]:checked").each(function () {
+                var row = $(this).parent().closest('tr');
+                record = {
+                    'id': row.find('td:nth-child(2)').text().trim(),
+                };
+            });
+
+            $("#txtDerivative").removeClass("form-control").addClass("form-control edited");
+            $("#txtDerivative").val(record.id);
+            $('#derivativeData').modal("toggle")
+
+        } else {
+            toastr.error("Please select a record", "Error");
+        }
+
+        return false;
+    });
+
+    $("#btnSmicSubmit").on('click', function () {
+        var record = "";
+        var nothingChecked = $('#gridSmicInfo input[type=checkbox]:checked').length;
+        if (nothingChecked === 1) {
+            $("#gridSmicInfo input[type=checkbox]:checked").each(function () {
+                var row = $(this).parent().closest('tr');
+                record = {
+                    'id': row.find('td:nth-child(2)').text().trim(),
+                };
+            });
+
+            $("#txtSMIC").removeClass("form-control").addClass("form-control edited");
+            $("#txtSMIC").val(record.id);
+            $('#smicData').modal("toggle")
+
+        } else {
+            toastr.error("Please select a record", "Error");
+        }
+
+        return false;
+    });
+
+    $("#btnTssSubmit").on('click', function () {
+        var record = "";
+        var nothingChecked = $('#gridTssInfo input[type=checkbox]:checked').length;
+        if (nothingChecked === 1) {
+            $("#gridTssInfo input[type=checkbox]:checked").each(function () {
+                var row = $(this).parent().closest('tr');
+                record = {
+                    'id': row.find('td:nth-child(2)').text().trim(),
+                };
+            });
+
+            $("#txtTSS").removeClass("form-control").addClass("form-control edited");
+            $("#txtTSS").val(record.id);
+            $('#tssData').modal("toggle")
+
+        } else {
+            toastr.error("Please select a record", "Error");
+        }
+
         return false;
     });
 

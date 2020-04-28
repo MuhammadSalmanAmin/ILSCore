@@ -173,6 +173,270 @@ namespace ILS
 
             return mappedList;
         }
+
+        public static List<MECViewModel> ToViewModel(this List<MimsXMec> mecList)
+        {
+            var mappedList = new List<MECViewModel>();
+
+            foreach (var mec in mecList)
+            {
+                MECViewModel newPart = new MECViewModel()
+                {
+                    Id = mec.Mec.ToString(),
+                    Description = mec.MecDesc
+                };
+
+                mappedList.Add(newPart);
+            }
+
+            return mappedList;
+        }
+
+        public static List<APViewModel> ToViewModel(this List<MimsXAp> apList)
+        {
+            var mappedList = new List<APViewModel>();
+
+            foreach (var ap in apList)
+            {
+                APViewModel newPart = new APViewModel()
+                {
+                    ID = ap.ApId.ToString(),
+                    Description = ap.ApName + " || " + ap.ApDesc
+                };
+
+                mappedList.Add(newPart);
+            }
+
+            return mappedList;
+        }
+
+        public static List<ACViewModel> ToViewModel(this List<MimsXAc> acList)
+        {
+            var mappedList = new List<ACViewModel>();
+
+            foreach (var ac in acList)
+            {
+                ACViewModel acModel = new ACViewModel()
+                {
+                    ID = ac.AcId.ToString(),
+                    Description = ac.AcName + " || " + ac.AcDesc
+                };
+
+                mappedList.Add(acModel);
+            }
+
+            return mappedList;
+        }
+
+        public static List<ASCViewModel> ToViewModel(this List<MimsXAsc> acList)
+        {
+            var mappedList = new List<ASCViewModel>();
+
+            foreach (var ac in acList)
+            {
+                ASCViewModel acModel = new ASCViewModel()
+                {
+                    ID = ac.AscId.ToString(),
+                    Description = ac.AscName + " || " + ac.AscDesc
+                };
+
+                mappedList.Add(acModel);
+            }
+
+            return mappedList;
+        }
+
+        public static List<ANCViewModel> ToViewModel(this List<MimsXAnc> ancList)
+        {
+            var mappedList = new List<ANCViewModel>();
+
+            foreach (var anc in ancList)
+            {
+                ANCViewModel newPart = new ANCViewModel()
+                {
+                    ID = anc.AncId.ToString(),
+                    Name = anc.AncName,
+                    Description = anc.AncDesc
+                };
+
+                mappedList.Add(newPart);
+            }
+
+            return mappedList;
+        }
+
+        public static List<APPViewModel> ToViewModel(this List<MimsXApp> appList)
+        {
+            var mappedList = new List<APPViewModel>();
+
+            foreach (var anc in appList)
+            {
+                APPViewModel newPart = new APPViewModel()
+                {
+                    ID = anc.AppId.ToString(),
+                    Code = anc.AppCode,
+                    Description = anc.AppDesc
+                };
+
+                mappedList.Add(newPart);
+            }
+
+            return mappedList;
+        }
+
+        public static List<CustodyViewModel> ToViewModel(this List<MimsXCustody> custodyList)
+        {
+            var mappedList = new List<CustodyViewModel>();
+
+            foreach (var anc in custodyList)
+            {
+                CustodyViewModel newPart = new CustodyViewModel()
+                {
+                    ID = anc.CustodyId.ToString(),
+                    Code = anc.CustodyCode,
+                    Description = anc.CustodyDesc
+                };
+
+                mappedList.Add(newPart);
+            }
+
+            return mappedList;
+        }
+
+        public static List<SMCViewModel> ToViewModel(this List<MimsXSmc> custodyList)
+        {
+            var mappedList = new List<SMCViewModel>();
+
+            foreach (var anc in custodyList)
+            {
+                SMCViewModel newPart = new SMCViewModel()
+                {
+                    ID = anc.SmcId.ToString(),
+                    Code = anc.SmcCode,
+                    Description = anc.SmcDesc
+                };
+
+                mappedList.Add(newPart);
+            }
+
+            return mappedList;
+        }
+
+        public static List<ShelfLifeViewModel> ToViewModel(this List<MimsXShelflife> shelfLifeItems)
+        {
+            var mappedList = new List<ShelfLifeViewModel>();
+
+            foreach (var ac in shelfLifeItems)
+            {
+                ShelfLifeViewModel acModel = new ShelfLifeViewModel()
+                {
+                    ID = ac.SlId.ToString(),
+                    Description = ac.SlCode + " || " + ac.SlDesc
+                };
+
+                mappedList.Add(acModel);
+            }
+
+
+            return mappedList;
+        }
+
+
+        public static List<DerivativeViewModel> ToViewModel(this List<MimsXDerivative> custodyList)
+        {
+            var mappedList = new List<DerivativeViewModel>();
+
+            foreach (var anc in custodyList)
+            {
+                DerivativeViewModel newPart = new DerivativeViewModel()
+                {
+                    ID = anc.DerivativeId.ToString(),
+                    Code = anc.DerivativeCode,
+                    Description = anc.DerivativeDesc
+                };
+
+                mappedList.Add(newPart);
+            }
+
+            return mappedList;
+        }
+
+
+        public static List<SMICViewModel> ToViewModel(this List<MimsXSmic> custodyList)
+        {
+            var mappedList = new List<SMICViewModel>();
+
+            foreach (var anc in custodyList)
+            {
+                SMICViewModel newPart = new SMICViewModel()
+                {
+                    ID = anc.SmicId.ToString(),
+                    Code = anc.SmicCode,
+                    Description = anc.SmicDesc
+                };
+
+                mappedList.Add(newPart);
+            }
+
+            return mappedList;
+        }
+
+        public static List<TSSViewModel> ToViewModel(this List<MimsXTss> custodyList)
+        {
+            var mappedList = new List<TSSViewModel>();
+
+            foreach (var anc in custodyList)
+            {
+                TSSViewModel newPart = new TSSViewModel()
+                {
+                    ID = anc.TssId.ToString(),
+                    Code = anc.TssCode,
+                    Description = anc.TssDesc
+                };
+
+                mappedList.Add(newPart);
+            }
+
+            return mappedList;
+        }
+
+        public static List<OSIViewModel> ToViewModel(this List<MimsXOsi> custodyList)
+        {
+            var mappedList = new List<OSIViewModel>();
+
+            foreach (var ac in custodyList)
+            {
+                OSIViewModel acModel = new OSIViewModel()
+                {
+                    ID = ac.OsiId.ToString(),
+                    Description = ac.OsiCode + " || " + ac.OsiDesc
+                };
+
+                mappedList.Add(acModel);
+            }
+
+
+            return mappedList;
+        }
+
+        public static List<LeadTimeViewModel> ToViewModel(this List<MimsXTimeperiod> shelfLifeItems)
+        {
+            var mappedList = new List<LeadTimeViewModel>();
+
+            foreach (var ac in shelfLifeItems)
+            {
+                LeadTimeViewModel acModel = new LeadTimeViewModel()
+                {
+                    ID = ac.TimeperiodId.ToString(),
+                    Description = ac.TimeperiodCode + " || " + ac.TimeperiodDesc
+                };
+
+                mappedList.Add(acModel);
+            }
+
+
+            return mappedList;
+        }
     }
 }
 

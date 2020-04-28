@@ -19,14 +19,14 @@ namespace ILS.Services
                 _context.Add(model.ToPartsEntity());
                 _context.SaveChanges();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                
+
             }
         }
         public override List<MimsCCage> GetCageInfo()
         {
-           return _context.MimsCCage.ToList();
+            return _context.MimsCCage.ToList();
         }
 
         public override dynamic GetChildPartList(string parentPartId, bool exclude)
@@ -76,6 +76,81 @@ namespace ILS.Services
 
         public override List<MimsCMcat> GetMaterialcCategoryItems() {
             return _context.MimsCMcat.ToList();
+        }
+
+        public override List<MimsXMec> GetMECInfo()
+        {
+            return _context.MimsXMec.ToList();
+        }
+
+        public override List<MimsXAp> GetAPItemsList()
+        {
+            return _context.MimsXAp.ToList();
+        }
+
+        public override List<MimsXAc> GetACItemsList()
+        {
+            return _context.MimsXAc.ToList();
+        }
+
+        public override List<MimsXAsc> GetASCItemsList()
+        {
+            return _context.MimsXAsc.ToList();
+        }
+
+        public override List<MimsXAnc> GetANCInfo()
+        {
+            return _context.MimsXAnc.ToList();
+        }
+
+        public override List<MimsXApp> GetAPPInfo()
+        {
+            return _context.MimsXApp.ToList();
+        }
+
+        public override List<MimsXCustody> GetCustodyInfo()
+        {
+            return _context.MimsXCustody.ToList();
+        }
+
+        public override List<MimsXSmc> GetSMCInfo()
+        {
+            return _context.MimsXSmc.ToList();
+        }
+
+        public override List<MimsXShelflife> GetShelfLifeItems()
+        {
+            return _context.MimsXShelflife.ToList();
+        }
+
+        public override List<MimsXDerivative> GetDerivativeItems()
+        {
+            return _context.MimsXDerivative.ToList();
+        }
+
+        public override List<MimsXSmic> GetSMICItems()
+        {
+            return _context.MimsXSmic.ToList();
+        }
+
+        public override List<MimsXTimeperiod> GetLeadTimeItems()
+        {
+            return _context.MimsXTimeperiod.ToList();
+        }
+
+        public override List<MimsXTss> GetTSSItems()
+        {
+            return _context.MimsXTss.ToList();
+        }
+
+        public override List<MimsXOsi> GetOSIItems()
+        {
+            return _context.MimsXOsi.ToList();
+        }
+
+        public override List<MimsXUom> GetUnitCubeItems()
+        {
+            return _context.MimsXUom.ToList();
         }
         public override int GetHashCode()
         {
