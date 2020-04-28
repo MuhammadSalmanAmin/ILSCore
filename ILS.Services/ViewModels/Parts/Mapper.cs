@@ -437,6 +437,44 @@ namespace ILS
 
             return mappedList;
         }
+
+        public static List<SecurityViewModel> ToViewModel(this List<MimsXSecurity> shelfLifeItems)
+        {
+            var mappedList = new List<SecurityViewModel>();
+
+            foreach (var ac in shelfLifeItems)
+            {
+                SecurityViewModel acModel = new SecurityViewModel()
+                {
+                    ID = ac.SecurityId.ToString(),
+                    Description = ac.SecurityCode + " || " + ac.SecurityDesc
+                };
+
+                mappedList.Add(acModel);
+            }
+
+
+            return mappedList;
+        }
+
+        public static List<SLAViewModel> ToViewModel(this List<MimsXSla> custodyList)
+        {
+            var mappedList = new List<SLAViewModel>();
+
+            foreach (var anc in custodyList)
+            {
+                SLAViewModel newPart = new SLAViewModel()
+                {
+                    ID = anc.SlaId.ToString(),
+                    Code = anc.SlaCode,
+                    Description = anc.SlaDesc
+                };
+
+                mappedList.Add(newPart);
+            }
+
+            return mappedList;
+        }
     }
 }
 

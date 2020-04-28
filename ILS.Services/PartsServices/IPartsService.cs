@@ -50,6 +50,9 @@ namespace ILS.Services
         public abstract List<MimsXOsi> GetOSIItems();
 
         public abstract List<MimsXUom> GetUnitCubeItems();
+        public abstract List<MimsXSecurity> GetSecurityItems();
+
+        public abstract List<MimsXSla> GetSLAInfo();
         public void Dispose()
         {
 

@@ -944,6 +944,92 @@
             }
         });
     }
+
+    var initSLAGrid = function () {
+
+        var table = $('#gridSLAInfo');
+        table.dataTable(
+            {
+                "language": {
+                    "aria": {
+                        "sortAscending": ": activate to sort column ascending",
+                        "sortDescending": ": activate to sort column descending"
+                    },
+                    "emptyTable": "No data available in table",
+                    "info": "Showing _START_ to _END_ of _TOTAL_ records",
+                    "infoEmpty": "No records found",
+                    "infoFiltered": "(filtered1 from _MAX_ total records)",
+                    "lengthMenu": "Show _MENU_",
+                    "search": "Search:",
+                    "zeroRecords": "No matching records found",
+                    "paginate": {
+                        "previous": "Prev",
+                        "next": "Next",
+                        "last": "Last",
+                        "first": "First"
+                    }
+                },
+
+                "ajax": {
+                    "url": "/Parts/GetSLAInfo",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.
+
+                "lengthMenu": [
+                    [5, 15, 20, -1],
+                    [5, 15, 20, "All"] // change per page values here
+                ],
+                "scrollY": 200,
+                // set the initial value
+                "pageLength": 5,
+                "pagingType": "bootstrap_full_number",
+                "columnDefs": [
+                    {  // set default column settings
+                        'orderable': false,
+                        'targets': [0]
+                    },
+                    {
+                        "searchable": false,
+                        "targets": [0]
+                    },
+                    {
+                        "className": "dt-right",
+
+                    },
+                    {
+                        'targets': 0,
+                        'render': function (data, type, row, meta) {
+                            if (type === 'display') {
+                                data = '<label class="mt-checkbox mt-checkbox-single mt-checkbox-outline"><input type="checkbox" class="checkboxes" value="1" /> <span></span></label>';
+                            }
+
+                            return data;
+                        }
+                    }
+                ],
+                "order": [
+                    [1, "asc"]
+                ],
+                "columns": [
+                    { "data": null, "defaultContent": '' },
+                    { "data": "id", "name": "Id", "autoWidth": true },
+                    { "data": "code", "name": "Code", "autoWidth": true },
+                    { "data": "description", "Description": "Description", "autoWidth": true },
+                ]// set first column as a default sort by asc
+            });
+        table.on('change', 'tbody tr .checkboxes', function () {
+
+            //$(this).parents('tr').toggleClass("active");
+
+            if ($(this).is(":checked")) {
+                $("input").prop("checked", false);
+                $(this).prop("checked", true);
+            }
+        });
+    }
+
 </script>
 
 <div class="portlet portlet-sortable light bordered bg-inverse">
@@ -1358,7 +1444,7 @@
                                         <div class="input-group-control">
                                             @Html.TextBoxFor(x => x.PartMEC, new { @class = "form-control", id = "txtPartMEC" })
                                             <label id="lblPartMEC" for="form_control_1">Part MEC</label>
-                                            <span class="help-block">Please select new NSN...</span>
+                                            <span class="help-block">Please select new MEC...</span>
                                         </div>
                                         <span class="input-group-btn btn-left">
                                             <button class="btn green btn-xs" data-toggle="modal" id="btnModalMEC" type="button">
@@ -1417,7 +1503,7 @@
                                 <div class="form-group form-md-line-input form-md-floating-label">
 
                                     @Html.DropDownListFor(x => x.ASC, Model.ASCItems, new { @class = "form-control", id = "ddASCItems" })
-                                    <label id="lblPartCategory" for="form_control_1">AC</label>
+                                    <label id="lblPartCategory" for="form_control_1">ASC</label>
                                     <span class="help-block">@Html.ValidationMessageFor(x => x.ASC)</span>
 
                                 </div>
@@ -1484,18 +1570,11 @@
 
                             <div class="col-md-3">
                                 <div class="form-group form-md-line-input form-md-floating-label">
-                                    <div class="input-group">
-                                        <div class="input-group-control">
-                                            @Html.TextBoxFor(x => x.SC, new { @class = "form-control", id = "txtSC" })
-                                            <label id="lblSC" for="form_control_1">SC</label>
-                                            <span class="help-block">Please select new NSN...</span>
-                                        </div>
-                                        <span class="input-group-btn btn-left">
-                                            <button class="btn green btn-xs" data-toggle="modal" id="btnModalSC" type="button">
-                                                <i class="glyphicon glyphicon-search"> </i>
-                                            </button>
-                                        </span>
-                                    </div>
+
+                                    @Html.DropDownListFor(x => x.SecurityId, Model.SecurityItems, new { @class = "form-control", id = "ddSecurity" })
+                                    <label id="lblSecurity" for="form_control_1">ASC</label>
+                                    <span class="help-block">@Html.ValidationMessageFor(x => x.SecurityId)</span>
+
                                 </div>
 
                             </div>
@@ -1604,11 +1683,23 @@
                         <div class="row">
 
                             <div class="col-md-3">
+
+
                                 <div class="form-group form-md-line-input form-md-floating-label">
-                                    @Html.TextBoxFor(x => x.SLA, new { @class = "form-control", id = "txtSLA" })
-                                    <label lbl="lblSLA" for="form_control_1">SLA</label>
-                                    <span class="help-block">Please input manufaturer name...</span>
+                                    <div class="input-group">
+                                        <div class="input-group-control">
+                                            @Html.TextBoxFor(x => x.SLA, new { @class = "form-control", id = "txtSLA" })
+                                            <label id="lblTSS" for="form_control_1">SLA</label>
+                                            <span class="help-block">Please select new SLA...</span>
+                                        </div>
+                                        <span class="input-group-btn btn-left">
+                                            <button class="btn green btn-xs" data-toggle="modal" id="btnModalSLA" type="button">
+                                                <i class="glyphicon glyphicon-search"> </i>
+                                            </button>
+                                        </span>
+                                    </div>
                                 </div>
+
 
                             </div>
 
@@ -1903,6 +1994,23 @@
                 </button>
             </div>
         </div>
+
+        <div id="slaData" class="modal fade" tabindex="-1" data-width="760">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            </div>
+            <div class="modal-body">
+                @Html.Partial("SLAView", Model)
+            </div>
+            <div class="modal-footer">
+                <button type="submit" data-dismiss="modal" id="btnSLASubmit" class="btn green-meadow">
+                    <i class="glyphicon glyphicon-ok"> </i>Submit
+                </button>
+                <button type="submit" class="btn red" data-dismiss="modal">
+                    <i class="glyphicon glyphicon-remove"> </i>Cancel
+                </button>
+            </div>
+        </div>
     }
 
 
@@ -1927,6 +2035,7 @@
         initDerivativeGrid();
         initSMICGrid();
         initTSSGrid();
+        initSLAGrid();
 
         $("#showGroupModal").click(function () {
             $("#groupData").modal('show');
@@ -1973,6 +2082,10 @@
             $("#tssData").modal('show');
         });
 
+        $("#btnModalSLA").click(function () {
+            $("#slaData").modal('show');
+        });
+
         $("input").change(function (e) {
             e.preventDefault();
             if ($(this).is(":checked")) {
@@ -2012,7 +2125,8 @@
                 };
 
                 $("#txtGroupName").removeClass("form-control").addClass("form-control edited");
-                $("#txtGroupName").val(record.groupCode + "-" + record.groupDesc);
+               // $("#txtGroupName").val(record.groupCode + "-" + record.groupDesc);
+                $("#txtGroupName").val(record.groupId);
                 $("#GroupId").val(record.groupCode);
 
             });
@@ -2083,7 +2197,7 @@
         return false;
     });
 
-    $("#btnMECSubmit").on('click', function () {
+    $("#btnMecSubmit").on('click', function () {
         var record = "";
         var nothingChecked = $('#gridMECInfo input[type=checkbox]:checked').length;
         if (nothingChecked === 1) {
@@ -2251,6 +2365,28 @@
             $("#txtTSS").removeClass("form-control").addClass("form-control edited");
             $("#txtTSS").val(record.id);
             $('#tssData').modal("toggle")
+
+        } else {
+            toastr.error("Please select a record", "Error");
+        }
+
+        return false;
+    });
+
+    $("#btnSLASubmit").on('click', function () {
+        var record = "";
+        var nothingChecked = $('#gridSLAInfo input[type=checkbox]:checked').length;
+        if (nothingChecked === 1) {
+            $("#gridSLAInfo input[type=checkbox]:checked").each(function () {
+                var row = $(this).parent().closest('tr');
+                record = {
+                    'id': row.find('td:nth-child(2)').text().trim(),
+                };
+            });
+
+            $("#txtSLA").removeClass("form-control").addClass("form-control edited");
+            $("#txtSLA").val(record.id);
+            $('#slaData').modal("toggle")
 
         } else {
             toastr.error("Please select a record", "Error");

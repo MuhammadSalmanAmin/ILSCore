@@ -213,6 +213,9 @@ namespace ILS
         [DisplayName("Unit Cube")]
         public string UnitCubeId { get; set; }
 
+        [DisplayName("Security")]
+        public string SecurityId { get; set; }
+
         public string GroupModelId { get; set; }
         public List<GroupInfoViewModel> GroupModel { get; set; }
 
@@ -232,6 +235,8 @@ namespace ILS
         public IEnumerable<SelectListItem> OSIItems { get; set; }
 
         public IEnumerable<SelectListItem> UnitCubeItems { get; set; }
+
+        public IEnumerable<SelectListItem> SecurityItems { get; set; }
         public List<CageViewModel> CageDetails { get; set; }
 
         public List<CageViewModel> VendorDetails { get; set; }
@@ -361,6 +366,20 @@ namespace ILS
     }
 
     public class UnitCubeViewModel
+    {
+        public string ID { get; set; }
+        public string Code { get; set; }
+        public string Description { get; set; }
+    }
+
+    public class SecurityViewModel
+    {
+        public string ID { get; set; }
+        public string Code { get; set; }
+        public string Description { get; set; }
+    }
+
+    public class SLAViewModel
     {
         public string ID { get; set; }
         public string Code { get; set; }

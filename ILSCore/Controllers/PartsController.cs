@@ -157,6 +157,12 @@ namespace ILS.Controllers
                 Text = c.Description
             });
 
+            vm.SecurityItems = _partService.GetSecurityItems().ToViewModel().Select(c => new SelectListItem
+            {
+                Value = c.ID,
+                Text = c.Description
+            });
+
 
             return vm;
         }
@@ -251,6 +257,12 @@ namespace ILS.Controllers
         public JsonResult GetTSSInfo()
         {
             return Json(new { data = _partService.GetTSSItems().ToViewModel() });
+        }
+
+        [HttpGet]
+        public JsonResult GetSLAInfo()
+        {
+            return Json(new { data = _partService.GetSLAInfo().ToViewModel() });
         }
 
     }

@@ -152,6 +152,16 @@ namespace ILS.Services
         {
             return _context.MimsXUom.ToList();
         }
+
+        public override List<MimsXSecurity> GetSecurityItems()
+        {
+            return _context.MimsXSecurity.ToList();
+        }
+
+        public override List<MimsXSla> GetSLAInfo()
+        {
+            return _context.MimsXSla.ToList();
+        }
         public override int GetHashCode()
         {
             return base.GetHashCode();
