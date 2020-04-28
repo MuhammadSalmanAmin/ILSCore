@@ -16,13 +16,11 @@ namespace ILS.Controllers
 {
     public class PartsController : Controller
     {
-        private readonly IConfiguration _configuration;
         private readonly ILogger<PartsController> _logger;
         private readonly IPartsService _partService;
         private IWebHostEnvironment _hostingEnvironment;
-        public PartsController(IWebHostEnvironment environment, ILogger<PartsController> logger,IConfiguration configuration, IPartsService partService)
+        public PartsController(IWebHostEnvironment environment, ILogger<PartsController> logger, IPartsService partService)
         {
-            _configuration = configuration;
             _hostingEnvironment = environment;
             _partService = partService;
             _logger = logger;

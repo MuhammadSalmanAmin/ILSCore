@@ -26,7 +26,7 @@ namespace ILS_Core
         {
             services.AddControllersWithViews();
             services.AddTransient(typeof(IPartsService), typeof(PartService));
-            services.AddSingleton(typeof(IConfiguration), typeof(ILSConfiguration));
+ 
             services.Configure<IISOptions>(options =>
             {
                 options.AutomaticAuthentication = true;
