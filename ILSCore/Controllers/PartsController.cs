@@ -11,6 +11,8 @@ using ILS.Services.ViewModels;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
+using System.Data;
 
 namespace ILS.Controllers
 {
@@ -34,7 +36,7 @@ namespace ILS.Controllers
         [HttpGet]
         public JsonResult GetPartsList()
         {
-            var list = _partService.GetPartsList();
+            var list = _partService.GetPartsList().ToPartsModelList();
             var result = Json(list);
 
             return result;
@@ -54,21 +56,21 @@ namespace ILS.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    TempData.Put("Message", new NotificationViewModel() { Message = "Part added succesfully.", MessageType = NotificationType.success });
+                    model.PictureFileName = $"{DateTime.Now.ToString("yyyymmddhhmiss")}{ model.PictureInfo.FileName}";
+
+                    _partService.AddParts(model);
 
                     var folderPath = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads");
                     if (model.PictureInfo.Length > 0)
                     {
-                        var filePath = Path.Combine(folderPath, model.PictureInfo.FileName);
+                        var filePath = Path.Combine(folderPath, model.PictureFileName);
                         using (var fileStream = new FileStream(filePath, FileMode.Create))
                         {
                             model.PictureInfo.CopyToAsync(fileStream);
                         }
                     }
 
-                    model.PictureFileName = model.PictureInfo.FileName;
-                   
-                    _partService.AddParts(model);
+                    TempData.Put("Message", new NotificationViewModel() { Message = $"Part '{model.PartName}' added succesfully.", MessageType = NotificationType.success });
                     return RedirectToAction("Index");
                 }
                 else
@@ -80,9 +82,10 @@ namespace ILS.Controllers
                     return View("AddParts", model);
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                return RedirectToAction("Index");
+                TempData.Put("Message", new NotificationViewModel() { Message = ex.ToString(), MessageType = NotificationType.error });
+                return View("AddParts", model);
             }
         }
         public AddPartViewModel LoadData()
@@ -167,11 +170,52 @@ namespace ILS.Controllers
             return vm;
         }
 
-        public IActionResult EditPart(string id)
+        public IActionResult Edit(string id)
         {
+            var partDetails = _partService.GetPartById(Convert.ToInt32(id));
+            if (partDetails != null)
+            {
+                var model = LoadData();
+
+                var partViewModel = partDetails.ToViewModel();
+                partViewModel.PartCategoryItems = model.PartCategoryItems;
+                partViewModel.PartTypeItems = model.PartTypeItems;
+                partViewModel.CurrencyItems = model.CurrencyItems;
+                partViewModel.UnitItems = model.UnitItems;
+                partViewModel.MaterialCategoryItems = model.MaterialCategoryItems;
+                partViewModel.APItems = model.APItems;
+                partViewModel.ACItems = model.ACItems;
+                partViewModel.ASCItems = model.ASCItems;
+                partViewModel.ShelfLifeItems = model.ShelfLifeItems;
+                partViewModel.LeadTimeItems = model.LeadTimeItems;
+                partViewModel.OSIItems = model.OSIItems;
+                partViewModel.UnitCubeItems = model.UnitCubeItems;
+                partViewModel.SecurityItems = model.SecurityItems;
+
+
+                var folderPath = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads");
+
+                partViewModel.PictureFileName = $"\\Uploads\\{partViewModel.PictureFileName}";
+
+                var cageInfo = _partService.GetCageInfo(Convert.ToInt32(partViewModel.ManufacturerId)).FirstOrDefault();
+
+                if (cageInfo != null)
+                {
+                    partViewModel.ManufacturerName = cageInfo.ManufacturerName;
+                    partViewModel.CageCode = model.GroupModelId;
+                }
+
+                return View("AddParts", partViewModel);
+            }
+            else
+            {
+                TempData.Put("Message", new NotificationViewModel() { Message = "Part not found.", MessageType = NotificationType.error });
+            }
             return View();
         }
 
+
+        #region Helper Functions
         [HttpGet]
         public ActionResult GetPartType()
         {
@@ -265,5 +309,184 @@ namespace ILS.Controllers
             return Json(new { data = _partService.GetSLAInfo().ToViewModel() });
         }
 
+        #endregion
+
+        [HttpGet]
+        public JsonResult GetChildren(string id)
+        {
+            var items = new List<NewJSTreeVM>();
+
+            {
+                NewJSTreeVM model = new NewJSTreeVM()
+                {
+                    id = "2",
+                    text = "Root node",
+                    children = new List<JsTreeViewModel>()
+                    {
+                        new JsTreeViewModel(){id="4",text="Child Node 1",children = true},
+                        new JsTreeViewModel(){id="5",text="Child Node 2",children = true},
+                    }
+                };
+
+                items.Add(model);
+
+            }
+            // set items in here
+            var dataa = JsonConvert.SerializeObject(items);
+
+            return Json(items);
+        }
+        [HttpGet]
+        public JsonResult GetRoot(string id)
+        {
+            var items = new List<NewJSTreeVM>();
+            NewJSTreeVM rootModel = new NewJSTreeVM();
+            string parentId = string.Empty;
+            bool isChildren = false;
+
+
+            if (id.Contains("##"))
+            {
+                parentId = id;
+                isChildren = true;
+                id = id.Split("##")[1];
+            }
+
+            DataTable dt = _partService.GetTreeViewData(id);
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                if (!isChildren)
+                {
+                    rootModel = new NewJSTreeVM()
+                    {
+                          
+                        id = dt.Rows[0]["parentPartId"]?.ToString(),
+                        text = dt.Rows[0]["parentName"]?.ToString(),
+                        children = new List<JsTreeViewModel>()
+                    };
+                }
+                else
+                {
+                    rootModel = new NewJSTreeVM()
+                    {
+                        id = parentId,
+                        text = dt.Rows[0]["parentName"]?.ToString(),
+                        children = new List<JsTreeViewModel>()
+                    };
+                }
+
+                foreach (var rows in dt.Select("LEVEL = '0'"))
+                {
+                    string text = string.Empty;
+                    if (dt.Select("parentPartId = '" + rows["childPartId"]?.ToString() + "'").Any())
+                    {
+                        text = dt.Select("parentPartId = '" + rows["childPartId"]?.ToString() + "'").FirstOrDefault()["parentName"]?.ToString();
+                    }
+                    else
+                    {
+                        text = _partService.GetPartById(Convert.ToInt32(rows["childPartId"]?.ToString()))?.PartName;
+                    }
+
+                    rootModel.children.Add(new JsTreeViewModel()
+                    {
+                         
+                        id = dt.Rows[0]["parentPartId"]?.ToString() + "##" + rows["childPartId"]?.ToString() + "##",
+                        children = dt.Select("parentPartId = '" + rows["childPartId"]?.ToString() + "'").Any() ? true : false,
+                        text = text
+                    });
+                }
+            }
+            else
+            {
+                rootModel = new NewJSTreeVM()
+                {
+                    id = id,
+                    text = "No Part",
+                    children = null
+                };
+            }
+
+            items.Add(rootModel);
+
+            return Json(items);
+        }
+
+        public ActionResult TreeView(string id)
+        {
+            TreeViewModel treeViewModel = new TreeViewModel()
+            {
+                Key = id
+            };
+            return View("TreeView", treeViewModel);
+        }
+
+        [HttpGet]
+        public JsonResult GetPartsData()
+        {
+            var result = _partService.GetPartsData();
+            return Json(result);
+        }
+
+        public ActionResult GetAssociatedPartView()
+        {
+            return View("PartsList");
+        }
+
+        public ActionResult GetGridDataForParts(string id)
+        {
+            var result = _partService.GetChildPartList(id, false);
+            ViewData["ParentId"] = id;
+            return Json(new { data = result });
+        }
+
+        public ActionResult AddEditChildPart(string id)
+        {
+            ViewData["ParentId"] = id;
+            return View("AddEditChildPart");
+        }
+
+        public ActionResult EditChildPart(string id)
+        {
+            ViewBag.PageMode = "Edit";
+            ViewData["ParentId"] = id;
+            return View("AddEditChildPart");
+        }
+
+        public ActionResult ViewChildPart(string id)
+        {
+            ViewBag.PageMode = "View";
+            ViewData["ParentId"] = id;
+            return View("AddEditChildPart");
+        }
+
+        public ActionResult GetAssociatedPartsData(string id)
+        {
+            ViewData["ParentId"] = id;
+            var result = _partService.GetChildPartList(id, true);
+            return Json(new { data = result });
+        }
+
+        [HttpPost]
+        public JsonResult LinkPart(string quantity,string parentPartId,string childPartId)
+        {
+            var result = _partService.LinkPart(quantity, parentPartId, childPartId);
+            return Json(result);
+        }
+
+        [HttpPost]
+        public JsonResult DeletePart(string id)
+        {
+            var result = _partService.DeletePart(id);
+            TempData.Put("Message", new NotificationViewModel() { Message = "Part deleted successfully.", MessageType = NotificationType.success });
+            return Json(result);
+        }
+
+        
+    }
+
+    public class TreeViewModel
+    {
+        public string Key { get; set; }
     }
 }

@@ -10,6 +10,88 @@ namespace ILS
 {
     public static class Mapper
     {
+        public static List<PartsViewModel> ToPartsModelList(this List<MimsCParts> entityList)
+        {
+
+            var partModelList = new List<PartsViewModel>();
+
+            foreach (var entity in entityList)
+            {
+                var partModel = new PartsViewModel()
+                {
+                    PartId = entity.PartId,
+                    Currency = entity.Currency != null ? entity.Currency.ToString() : "",
+                    ManufacturerCategory = entity.Mcat,
+                    ManufacturerId = entity.ManId,
+                    PartCategory = entity.PartCat,
+                    PartName = entity.PartName,
+                    PartNo = entity.PartNo,
+                    PartType = entity.PartType,
+                    UnitPrice = entity.UnitPrice
+                };
+
+                partModelList.Add(partModel);
+            }
+
+            return partModelList;
+        }
+
+        public static AddPartViewModel ToViewModel(this MimsCParts entity)
+        {
+            var partModel = new AddPartViewModel()
+            {
+                ManufacturerId = Convert.ToString(entity.ManId),
+                MaterialCategoryId = entity.Mcat,
+                PartCategoryId = entity.PartCat,
+                PartTypeId = entity.PartType,
+                AC = entity.Ac is null ? string.Empty : Convert.ToString(entity.Ac),
+                ANC = entity.Anc is null ? string.Empty : Convert.ToString(entity.Anc),
+                AP = entity.Ap is null ? string.Empty : Convert.ToString(entity.Ap),
+                APP = entity.App is null ? string.Empty : Convert.ToString(entity.App),
+                ASC = entity.Asc is null ? string.Empty : Convert.ToString(entity.Asc),
+                Currency = entity.Currency is null ? string.Empty : Convert.ToString(entity.Currency),
+                CustodyId = entity.CustodyId is null ? string.Empty : Convert.ToString(entity.CustodyId),
+                Derivative = entity.DerivativeId is null ? string.Empty : Convert.ToString(entity.DerivativeId),
+                GroupModelId = entity.HZECode is null ? string.Empty : Convert.ToString(entity.HZECode),
+                PartMEC = entity.PartMec is null ? string.Empty : Convert.ToString(entity.PartMec),
+                OSIId = entity.Osi is null ? string.Empty : Convert.ToString(entity.Osi),
+                SecurityId = entity.DocSecId is null ? string.Empty : Convert.ToString(entity.DocSecId),
+                ShelfLifeId = entity.ShelfLifeId is null ? string.Empty : Convert.ToString(entity.ShelfLifeId),
+                SLA = entity.SlaId is null ? string.Empty : Convert.ToString(entity.SlaId),
+                SMC = entity.Smc is null ? string.Empty : Convert.ToString(entity.Smc),
+                SMIC = entity.Smic is null ? string.Empty : Convert.ToString(entity.Smic),
+                LeadTimeId = entity.LeadTimeId is null ? string.Empty : Convert.ToString(entity.LeadTimeId),
+                TSS = entity.TssId is null ? string.Empty : Convert.ToString(entity.TssId),
+                UnitCubeId = entity.UnitCube is null ? string.Empty : Convert.ToString(entity.UnitCube),
+
+                PartName = entity.PartName,
+                PartNumber = entity.PartNo,
+
+                UnitPrice = entity.UnitPrice ?? 0,
+                Length = entity.Length ?? 0,
+                Width = entity.Width ?? 0,
+                Height = entity.Height ?? 0,
+                MTBF = entity.Mtbf ?? 0,
+                BRF = entity.Brf ?? 0,
+                Diameter = entity.Diameter is null ? 0 : Convert.ToDecimal(entity.Diameter),
+                PartCharacteristics = entity.PartCharacteristics,
+                PictureFileName = entity.PictureFileName,
+                SMR = entity.Smr,
+
+            
+                CreationDateTime = entity.DateAdded,
+                ModifiedDateTime = entity.DateUpdated,
+
+                MMTR = entity.Mmtr ?? 0,
+                OldNSN = entity.OldNsn,
+                NSN = entity.TempNsn,
+                OldSMIC = entity.OldSmic is null ? string.Empty : Convert.ToString(entity.OldSmic)
+            };
+
+            return partModel;
+        }
+
+
         public static List<PartTypeViewModel> ToViewModel(this List<MimsCParttype> partType)
         {
             var mappedList = new List<PartTypeViewModel>();
@@ -90,7 +172,7 @@ namespace ILS
             {
                 CurrencyViewModel newPart = new CurrencyViewModel()
                 {
-                    ID = type.CurrCode,
+                    ID = type.CurrencyId.ToString(),
                     Description = type.CurrName
                 };
 
@@ -146,8 +228,8 @@ namespace ILS
             {
                 VendorViewModel newPart = new VendorViewModel()
                 {
-                   PartId = type.PartId.ToString(),
-                   VendorId =   type.VendorId.ToString()
+                    PartId = type.PartId.ToString(),
+                    VendorId = type.VendorId.ToString()
                 };
 
                 mappedList.Add(newPart);

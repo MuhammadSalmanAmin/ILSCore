@@ -1,0 +1,110 @@
+﻿@using ILS.Controllers
+@model TreeViewModel
+@{
+    ViewData["Title"] = "TreeView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="@Url.Content("~/assets/global/plugins/jquery.min.js")"></script>
+<script src="@Url.Content("~/assets/global/plugins/jquery.blockui.min.js")"></script>
+<script src="@Url.Content("~/assets/global/plugins/jstree/dist/jstree.min.js")"></script>
+<script src="@Url.Content("~/assets/global/scripts/app.min.js")"></script>
+@*<script src="@Url.Content("~/assets/global/plugins/jstree/dist/jstree.min.js")"></script>
+    <script src="@Url.Content("~/assets/pages/scripts/ui-tree.js")"></script>*@
+
+@*<script>
+
+
+
+        $(function () {
+            ajaxTreeSample();
+        });
+
+
+        var ajaxTreeSample = function () {
+
+            $("#tree_5").jstree({
+                "core": {
+
+                    'data': [{
+                        "text": "Same but with checkboxes",
+                        "children": [{
+                            "text": "initially selected",
+                            "state": {
+                                "selected": true
+                            }
+                        }, {
+                            "text": "custom icon",
+                            "icon": "fa fa-warning icon-state-danger"
+                        }, {
+                            "text": "initially open",
+                            "icon": "fa fa-folder icon-state-default",
+                            "state": {
+                                "opened": true
+                            },
+                            "children": ["Another node"]
+                        }, {
+                            "text": "custom icon",
+                            "icon": "fa fa-warning icon-state-warning"
+                        }, {
+                            "text": "disabled node",
+                            "icon": "fa fa-check icon-state-success",
+                            "state": {
+                                "disabled": true
+                            }
+                        }]
+                    },
+                        "And wholerow selection"
+                    ]
+                }
+            });
+
+        }
+
+    </script>*@
+
+
+
+
+<script type="text/javascript">
+    $(function() {
+        var $children = $("#object-children-tree");
+
+        $children.jstree({
+            'plugins': ["wholerow", "types"],
+            "core": {
+                'data': {
+                    'url': function (node) {
+                        return node.id==="#" ? "GetRoot" : "GetRoot";
+                    },
+                    'data': function (node) {
+                        return { 'id': node.id === "#" ? @Model.Key : node.id};
+                    }
+                }
+            },
+            "types": {
+                "default": {
+                    "icon": "fa fa-folder icon-state-warning icon-lg"
+                },
+                "file": {
+                    "icon": "fa fa-file icon-state-warning icon-lg"
+                }
+            }
+        });
+    });
+</script>
+
+
+<div class="col-md-12">
+    <div class="portlet red-pink box">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-cogs"></i>Equipment Configuration
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div id="object-children-tree" data-key="@Model.Key" class="tree-demo"></div>
+        </div>
+    </div>
+</div>
+

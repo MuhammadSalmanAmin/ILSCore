@@ -5,6 +5,8 @@
 }
 
 <script src="@Url.Content("~/assets/global/plugins/jquery.min.js")"></script>
+
+<script src="@Url.Content("~/assets/global/scripts/app.min.js")"></script>
 <script src="@Url.Content("~/assets/pages/scripts/portlet-draggable.min.js")"></script>
 <script src="@Url.Content("~/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js")"></script>
 
@@ -131,7 +133,6 @@
                     [5, 15, 20, -1],
                     [5, 15, 20, "All"] // change per page values here
                 ],
-                "scrollY": 200,
                 // set the initial value
                 "pageLength": 5,
                 "pagingType": "bootstrap_full_number",
@@ -1045,7 +1046,7 @@
     {
         <div class="row">
 
-            <div class="col-md-8 column sortable">
+            <div class="col-md-12 column sortable">
                 <!-- BEGIN SAMPLE FORM PORTLET-->
                 <div class="portlet portlet-sortable light bordered">
                     <div class="portlet-title ui-sortable-handle">
@@ -1061,23 +1062,45 @@
                     </div>
 
                     <div class="portlet-body form">
-                        <div class="form-group form-md-line-input form-md-floating-label">
-                            @Html.TextBoxFor(x => x.PartName, new { id = "txtPartName", @class = "form-control" })
-                            @Html.LabelFor(x => x.PartName, new { id = "lblPartName", @class = "" })
-                            <span class="help-block">@Html.ValidationMessageFor(x => x.PartName)</span>
-
-                        </div>
 
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-8">
+                                <div class="form-group form-md-line-input form-md-floating-label">
+
+                                    @Html.TextBoxFor(x => x.PartName, new { id = "txtPartName", @class = "form-control" })
+                                    @Html.LabelFor(x => x.PartName, new { id = "lblPartName", @class = "" })
+                                    <span class="help-block">@Html.ValidationMessageFor(x => x.PartName)</span>
+
+                                </div>
                                 <div class="form-group form-md-line-input form-md-floating-label">
                                     @Html.DropDownListFor(x => x.PartCategoryId, Model.PartCategoryItems, new { @class = "form-control", id = "ddPartCategory" })
                                     <label id="lblPartCategory" for="form_control_1">Part Category</label>
                                     <span class="help-block">@Html.ValidationMessageFor(x => x.PartCategoryId)</span>
                                 </div>
                             </div>
+                            <div class="col-md-4" style="text-align:center">
+                                <div class="fileinput fileinput-new" data-provides="fileinput">
+                                    <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; line-height: 150px;">
 
-                            <div class="col-md-6">
+                                        <img src="@Model.PictureFileName" />
+                                    </div>
+                                    <div>
+                                        <span class="btn red btn-outline btn-file">
+                                            <span class="fileinput-new"> Select image </span>
+                                            <span class="fileinput-exists"> Change </span>
+                                            <input type="hidden" value="" name="...">@Html.TextBoxFor(model => model.PictureInfo, null, new { type = "file" })
+                                        </span>
+                                        <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput" style=""><span class="md-click-circle md-click-animate" style="height: 79px; width: 79px; top: 263.5px; left: 651.5px;"></span> Remove </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+
+                            <div class="col-md-8">
                                 <div class="form-group form-md-line-input form-md-floating-label">
 
                                     @Html.DropDownListFor(x => x.PartTypeId, Model.PartTypeItems, new { @class = "form-control", id = "ddPartTType" })
@@ -1204,142 +1227,12 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group form-md-line-input form-md-floating-label">
-                                    <textarea id="txtPartCharacteristics" class="form-control" rows="3"></textarea>
-                                    <label id="lblPartCharacteristics" for="form_control_1">Part Characteristic</label>
-                                    <span class="help-block">@Html.ValidationMessageFor(x => x.PartCharacteristics)</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-                <!-- END SAMPLE FORM PORTLET-->
-            </div>
-
-            <div class="col-md-4 column sortable">
-
-                <div class="portlet portlet-sortable light bordered">
-                    <div class="portlet-title ui-sortable-handle">
-                        <div class="caption font-green">
-                            <i class="icon-camera font-green"></i>
-                            <span class="caption-subject bold">Image Box</span>
-                        </div>
-                        <div class="tools">
-                            <a href="" class="collapse"> </a>
-                            <a href="" class="fullscreen"> </a>
-                        </div>
-                    </div>
-                    <div class="portlet-body form">
-                        <div class="row">
-                            <div class="col-md-4" style="text-align:center">
-                                <div class="fileinput fileinput-new" data-provides="fileinput">
-                                    <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; line-height: 150px;">
-
-                                        <img src="@Model.PictureFileName" />
-                                    </div>
-                                    <div>
-                                        <span class="btn red btn-outline btn-file">
-                                            <span class="fileinput-new"> Select image </span>
-                                            <span class="fileinput-exists"> Change </span>
-                                            <input type="hidden" value="" name="...">@Html.TextBoxFor(model => model.PictureInfo, null, new { type = "file" })
-                                        </span>
-                                        <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput" style=""><span class="md-click-circle md-click-animate" style="height: 79px; width: 79px; top: 263.5px; left: 651.5px;"></span> Remove </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4 column sortable">
-
-                <div class="portlet portlet-sortable light bordered">
-                    <div class="portlet-title ui-sortable-handle">
-                        <div class="caption font-green">
-                            <i class="glyphicon glyphicon-link font-green"></i>
-                            <span class="caption-subject bold">Associated Info</span>
-                        </div>
-                        <div class="tools">
-                            <a href="" class="collapse"> </a>
-                            <a href="" class="fullscreen"> </a>
-                        </div>
-                    </div>
-                    <div class="portlet-body form">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group form-md-line-input form-md-floating-label">
-                                    <div class="input-group">
-                                        <div class="input-group-control">
-
-                                            @Html.TextBoxFor(x => x.SMR, new { @class = "form-control", id = "txtSMR" })
-                                            <label for="form_control_1">SMR</label>
-                                            <span class="help-block">Please select SMR...</span>
-                                        </div>
-                                        <span class="input-group-btn btn-left">
-                                            <button class="btn green btn-xs" data-toggle="modal" href="#responsive" type="button">
-                                                <i class="glyphicon glyphicon-search"></i>View
-                                            </button>
-                                        </span>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group form-md-line-input form-md-floating-label">
-                                    <div class="input-group">
-                                        <div class="input-group-control">
-                                            @Html.TextBoxFor(x => x.GroupModelId, new { @class = "form-control", id = "txtGroupName" })
-                                            @Html.Hidden("txtGroupID")
-                                            <label for="form_control_1">Group Info</label>
-                                            <span class="help-block">Please select group...</span>
-                                        </div>
-                                        <span class="input-group-btn btn-left">
-                                            <button id="showGroupModal" class="btn green btn-xs" data-toggle="modal" type="button">
-                                                <i class="glyphicon glyphicon-search"> </i>
-                                            </button>
-                                        </span>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="row">
-            <div class="col-md-12 column sortable">
-                <!-- BEGIN SAMPLE FORM PORTLET-->
-                <div class="portlet portlet-sortable light bordered">
-                    <div class="portlet-title ui-sortable-handle">
-                        <div class="caption font-green">
-                            <i class="icon-info font-green"></i>
-                            <span class="caption-subject bold"> Other details</span>
-                        </div>
-                        <div class="tools">
-                            <a href="" class="collapse"> </a>
-                            <a href="" class="fullscreen"> </a>
-                        </div>
-                    </div>
-
-                    <div class="portlet-body form">
-                        <div class="row">
                             <div class="col-md-3">
 
                                 <div class="form-group form-md-line-input form-md-floating-label">
 
-                                    @Html.TextBoxFor(x => x.ManufacturerId, new { @class = "form-control", id = "txtManufacturerCode" })
-                                    @Html.HiddenFor(x => x.ManufacturerId, new { @class = "form-control", id = "txtManufacturerId" })
+                                    @Html.TextBoxFor(x => x.ManufacturerId, new { @class = "form-control", id = "txtManufacturerCode" , disabled = "disabled" })
+                                    @Html.HiddenFor(x => x.ManufacturerId, new { @class = "form-control", id = "txtManufacturerId" , disabled = "disabled" })
                                     <label lbl="lblManufacturerId" for="form_control_1">Manufacturer Id</label>
                                     <span class="help-block">Please input manufaturer id...</span>
                                 </div>
@@ -1348,7 +1241,7 @@
 
                             <div class="col-md-6">
                                 <div class="form-group form-md-line-input form-md-floating-label">
-                                    @Html.TextBoxFor(x => x.ManufacturerName, new { @class = "form-control", id = "txtManufacturerName" })
+                                    @Html.TextBoxFor(x => x.ManufacturerName, new { @class = "form-control", id = "txtManufacturerName", disabled = "disabled" })
                                     <label lbl="lblManufacturerName" for="form_control_1">Manufacturer Name</label>
                                     <span class="help-block">Please input manufaturer name...</span>
                                 </div>
@@ -1358,7 +1251,7 @@
                                 <div class="form-group form-md-line-input form-md-floating-label">
                                     <div class="input-group">
                                         <div class="input-group-control">
-                                            @Html.TextBoxFor(x => x.CageCode, new { @class = "form-control", id = "txtCageCode" })
+                                            @Html.TextBoxFor(x => x.CageCode, new { @class = "form-control", id = "txtCageCode", disabled = "disabled" })
                                             <label for="form_control_1">Cage</label>
                                             <span class="help-block">Please select cage...</span>
                                         </div>
@@ -1378,7 +1271,7 @@
                             <div class="col-md-4">
 
                                 <div class="form-group form-md-line-input form-md-floating-label">
-                                    @Html.TextBoxFor(x => x.ManufacturerId, new { @class = "form-control", id = "txtVendorId" })
+                                    @Html.TextBoxFor(x => x.ManufacturerId, new { @class = "form-control", id = "txtVendorId", disabled = "disabled" })
                                     <label lbl="lblVendorId" for="form_control_1">Vendor Id</label>
                                     <span class="help-block">Please input vendor id...</span>
                                 </div>
@@ -1390,7 +1283,7 @@
                                 <div class="form-group form-md-line-input form-md-floating-label">
                                     <div class="input-group">
                                         <div class="input-group-control">
-                                            @Html.TextBoxFor(x => x.VendorName, new { @class = "form-control", id = "txtVendorName" })
+                                            @Html.TextBoxFor(x => x.VendorName, new { @class = "form-control", id = "txtVendorName", disabled = "disabled" })
                                             <label for="form_control_1">Vendor Name</label>
                                             <span class="help-block">Please select vendor...</span>
                                         </div>
@@ -1436,13 +1329,250 @@
                             </div>
                         </div>
 
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group form-md-line-input form-md-floating-label">
+                                    <textarea id="txtPartCharacteristics" class="form-control" rows="3"></textarea>
+                                    <label id="lblPartCharacteristics" for="form_control_1">Part Characteristic</label>
+                                    <span class="help-block">@Html.ValidationMessageFor(x => x.PartCharacteristics)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+                <!-- END SAMPLE FORM PORTLET-->
+            </div>
+
+            @*<div class="col-md-4 column sortable">
+
+                    <div class="portlet portlet-sortable light bordered">
+                        <div class="portlet-title ui-sortable-handle">
+                            <div class="caption font-green">
+                                <i class="icon-camera font-green"></i>
+                                <span class="caption-subject bold">Image Box</span>
+                            </div>
+                            <div class="tools">
+                                <a href="" class="collapse"> </a>
+                                <a href="" class="fullscreen"> </a>
+                            </div>
+                        </div>
+                        <div class="portlet-body form">
+                            <div class="row">
+                                <div class="col-md-4" style="text-align:center">
+                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                        <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; line-height: 150px;">
+
+                                            <img src="@Model.PictureFileName" />
+                                        </div>
+                                        <div>
+                                            <span class="btn red btn-outline btn-file">
+                                                <span class="fileinput-new"> Select image </span>
+                                                <span class="fileinput-exists"> Change </span>
+                                                <input type="hidden" value="" name="...">@Html.TextBoxFor(model => model.PictureInfo, null, new { type = "file" })
+                                            </span>
+                                            <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput" style=""><span class="md-click-circle md-click-animate" style="height: 79px; width: 79px; top: 263.5px; left: 651.5px;"></span> Remove </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+
+            @*<div class="col-md-4 column sortable">
+
+                    <div class="portlet portlet-sortable light bordered">
+                        <div class="portlet-title ui-sortable-handle">
+                            <div class="caption font-green">
+                                <i class="glyphicon glyphicon-link font-green"></i>
+                                <span class="caption-subject bold">Associated Info</span>
+                            </div>
+                            <div class="tools">
+                                <a href="" class="collapse"> </a>
+                                <a href="" class="fullscreen"> </a>
+                            </div>
+                        </div>
+                        <div class="portlet-body form">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group form-md-line-input form-md-floating-label">
+                                        <div class="input-group">
+                                            <div class="input-group-control">
+
+                                                @Html.TextBoxFor(x => x.SMR, new { @class = "form-control", id = "txtSMR" })
+                                                <label for="form_control_1">SMR</label>
+                                                <span class="help-block">Please select SMR...</span>
+                                            </div>
+                                            <span class="input-group-btn btn-left">
+                                                <button class="btn green btn-xs" data-toggle="modal" href="#responsive" type="button">
+                                                    <i class="glyphicon glyphicon-search"></i>View
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group form-md-line-input form-md-floating-label">
+                                        <div class="input-group">
+                                            <div class="input-group-control">
+                                                @Html.TextBoxFor(x => x.GroupModelId, new { @class = "form-control", id = "txtGroupName" })
+                                                @Html.Hidden("txtGroupID")
+                                                <label for="form_control_1">Group Info</label>
+                                                <span class="help-block">Please select group...</span>
+                                            </div>
+                                            <span class="input-group-btn btn-left">
+                                                <button id="showGroupModal" class="btn green btn-xs" data-toggle="modal" type="button">
+                                                    <i class="glyphicon glyphicon-search"> </i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>*@
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 column sortable">
+                <!-- BEGIN SAMPLE FORM PORTLET-->
+                <div class="portlet portlet-sortable light bordered">
+                    <div class="portlet-title ui-sortable-handle">
+                        <div class="caption font-green">
+                            <i class="icon-info font-green"></i>
+                            <span class="caption-subject bold"> Other details</span>
+                        </div>
+                        <div class="tools">
+                            <a href="" class="collapse"> </a>
+                            <a href="" class="fullscreen"> </a>
+                        </div>
+                    </div>
+
+                    <div class="portlet-body form">
+
+                        @*<div class="row">
+                                <div class="col-md-3">
+
+                                    <div class="form-group form-md-line-input form-md-floating-label">
+
+                                        @Html.TextBoxFor(x => x.ManufacturerId, new { @class = "form-control", id = "txtManufacturerCode" })
+                                        @Html.HiddenFor(x => x.ManufacturerId, new { @class = "form-control", id = "txtManufacturerId" })
+                                        <label lbl="lblManufacturerId" for="form_control_1">Manufacturer Id</label>
+                                        <span class="help-block">Please input manufaturer id...</span>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group form-md-line-input form-md-floating-label">
+                                        @Html.TextBoxFor(x => x.ManufacturerName, new { @class = "form-control", id = "txtManufacturerName" })
+                                        <label lbl="lblManufacturerName" for="form_control_1">Manufacturer Name</label>
+                                        <span class="help-block">Please input manufaturer name...</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group form-md-line-input form-md-floating-label">
+                                        <div class="input-group">
+                                            <div class="input-group-control">
+                                                @Html.TextBoxFor(x => x.CageCode, new { @class = "form-control", id = "txtCageCode" })
+                                                <label for="form_control_1">Cage</label>
+                                                <span class="help-block">Please select cage...</span>
+                                            </div>
+                                            <span class="input-group-btn btn-left">
+                                                <button class="btn green btn-xs" data-toggle="modal" id="btnModalCage" type="button">
+                                                    <i class="glyphicon glyphicon-search"> </i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+
+                                    <div class="form-group form-md-line-input form-md-floating-label">
+                                        @Html.TextBoxFor(x => x.ManufacturerId, new { @class = "form-control", id = "txtVendorId" })
+                                        <label lbl="lblVendorId" for="form_control_1">Vendor Id</label>
+                                        <span class="help-block">Please input vendor id...</span>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="col-md-8">
+                                    <div class="form-group form-md-line-input form-md-floating-label">
+                                        <div class="input-group">
+                                            <div class="input-group-control">
+                                                @Html.TextBoxFor(x => x.VendorName, new { @class = "form-control", id = "txtVendorName" })
+                                                <label for="form_control_1">Vendor Name</label>
+                                                <span class="help-block">Please select vendor...</span>
+                                            </div>
+                                            <span class="input-group-btn btn-left">
+                                                <button class="btn green btn-xs" data-toggle="modal" id="btnModalVendor" type="button">
+                                                    <i class="glyphicon glyphicon-search"> </i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+
+                                    <div class="form-group form-md-line-input form-md-floating-label">
+                                        @Html.TextBoxFor(x => x.OldNSN, new { @class = "form-control", id = "txtOldNSN" })
+                                        <label lbl="lblOldNSN" for="form_control_1">Old NSN</label>
+                                        <span class="help-block">Please input Old NSN...</span>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group form-md-line-input form-md-floating-label">
+                                        <div class="input-group">
+                                            <div class="input-group-control">
+                                                @Html.TextBoxFor(x => x.NSN, new { @class = "form-control", id = "txtNewNSN" })
+                                                <label id="lblNewNSN" for="form_control_1">New NSN</label>
+                                                <span class="help-block">Please select new NSN...</span>
+                                            </div>
+                                            <span class="input-group-btn btn-left">
+                                                <button class="btn green btn-xs" data-toggle="modal" id="btnModalNSN" type="button">
+                                                    <i class="glyphicon glyphicon-search"> </i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>*@
+
+
                         <div class="row">
 
                             <div class="col-md-4">
                                 <div class="form-group form-md-line-input form-md-floating-label">
                                     <div class="input-group">
                                         <div class="input-group-control">
-                                            @Html.TextBoxFor(x => x.PartMEC, new { @class = "form-control", id = "txtPartMEC" })
+                                            @Html.TextBoxFor(x => x.PartMEC, new { @class = "form-control", id = "txtPartMEC", disabled = "disabled" })
                                             <label id="lblPartMEC" for="form_control_1">Part MEC</label>
                                             <span class="help-block">Please select new MEC...</span>
                                         </div>
@@ -1514,7 +1644,7 @@
                                 <div class="form-group form-md-line-input form-md-floating-label">
                                     <div class="input-group">
                                         <div class="input-group-control">
-                                            @Html.TextBoxFor(x => x.ANC, new { @class = "form-control", id = "txtANC" })
+                                            @Html.TextBoxFor(x => x.ANC, new { @class = "form-control", id = "txtANC", disabled = "disabled" })
                                             <label id="lblANC" for="form_control_1">ANC</label>
                                             <span class="help-block">Please select ANC...</span>
                                         </div>
@@ -1532,7 +1662,7 @@
                                 <div class="form-group form-md-line-input form-md-floating-label">
                                     <div class="input-group">
                                         <div class="input-group-control">
-                                            @Html.TextBoxFor(x => x.APP, new { @class = "form-control", id = "txtAPP" })
+                                            @Html.TextBoxFor(x => x.APP, new { @class = "form-control", id = "txtAPP", disabled = "disabled" })
                                             <label id="lblAPP" for="form_control_1">APP</label>
                                             <span class="help-block">Please select new APP...</span>
                                         </div>
@@ -1554,7 +1684,7 @@
                                 <div class="form-group form-md-line-input form-md-floating-label">
                                     <div class="input-group">
                                         <div class="input-group-control">
-                                            @Html.TextBoxFor(x => x.CustodyId, new { @class = "form-control", id = "txtCustody" })
+                                            @Html.TextBoxFor(x => x.CustodyId, new { @class = "form-control", id = "txtCustody", disabled = "disabled" })
                                             <label id="lblCustodyId" for="form_control_1">Custody</label>
                                             <span class="help-block">Please select new NSN...</span>
                                         </div>
@@ -1572,7 +1702,7 @@
                                 <div class="form-group form-md-line-input form-md-floating-label">
 
                                     @Html.DropDownListFor(x => x.SecurityId, Model.SecurityItems, new { @class = "form-control", id = "ddSecurity" })
-                                    <label id="lblSecurity" for="form_control_1">ASC</label>
+                                    <label id="lblSecurity" for="form_control_1">Security Id</label>
                                     <span class="help-block">@Html.ValidationMessageFor(x => x.SecurityId)</span>
 
                                 </div>
@@ -1583,7 +1713,7 @@
                                 <div class="form-group form-md-line-input form-md-floating-label">
                                     <div class="input-group">
                                         <div class="input-group-control">
-                                            @Html.TextBoxFor(x => x.SMC, new { @class = "form-control", id = "txtSMC" })
+                                            @Html.TextBoxFor(x => x.SMC, new { @class = "form-control", id = "txtSMC", disabled = "disabled" })
                                             <label id="lblSMC" for="form_control_1">SMC</label>
                                             <span class="help-block">Please select new NSN...</span>
                                         </div>
@@ -1616,7 +1746,7 @@
                                 <div class="form-group form-md-line-input form-md-floating-label">
                                     <div class="input-group">
                                         <div class="input-group-control">
-                                            @Html.TextBoxFor(x => x.Derivative, new { @class = "form-control", id = "txtDerivative" })
+                                            @Html.TextBoxFor(x => x.Derivative, new { @class = "form-control", id = "txtDerivative", disabled = "disabled" })
                                             <label id="lblDerivative" for="form_control_1">Derivative</label>
                                             <span class="help-block">Please select new Derivative...</span>
                                         </div>
@@ -1634,7 +1764,7 @@
                                 <div class="form-group form-md-line-input form-md-floating-label">
                                     <div class="input-group">
                                         <div class="input-group-control">
-                                            @Html.TextBoxFor(x => x.SMIC, new { @class = "form-control", id = "txtSMIC" })
+                                            @Html.TextBoxFor(x => x.SMIC, new { @class = "form-control", id = "txtSMIC", disabled = "disabled" })
                                             <label id="lblSMIC" for="form_control_1">SMIC</label>
                                             <span class="help-block">Please select new NSN...</span>
                                         </div>
@@ -1664,7 +1794,7 @@
                                 <div class="form-group form-md-line-input form-md-floating-label">
                                     <div class="input-group">
                                         <div class="input-group-control">
-                                            @Html.TextBoxFor(x => x.TSS, new { @class = "form-control", id = "txtTSS" })
+                                            @Html.TextBoxFor(x => x.TSS, new { @class = "form-control", id = "txtTSS", disabled = "disabled" })
                                             <label id="lblTSS" for="form_control_1">TSS</label>
                                             <span class="help-block">Please select new NSN...</span>
                                         </div>
@@ -1688,7 +1818,7 @@
                                 <div class="form-group form-md-line-input form-md-floating-label">
                                     <div class="input-group">
                                         <div class="input-group-control">
-                                            @Html.TextBoxFor(x => x.SLA, new { @class = "form-control", id = "txtSLA" })
+                                            @Html.TextBoxFor(x => x.SLA, new { @class = "form-control", id = "txtSLA", disabled = "disabled" })
                                             <label id="lblTSS" for="form_control_1">SLA</label>
                                             <span class="help-block">Please select new SLA...</span>
                                         </div>
@@ -2125,7 +2255,7 @@
                 };
 
                 $("#txtGroupName").removeClass("form-control").addClass("form-control edited");
-               // $("#txtGroupName").val(record.groupCode + "-" + record.groupDesc);
+                // $("#txtGroupName").val(record.groupCode + "-" + record.groupDesc);
                 $("#txtGroupName").val(record.groupId);
                 $("#GroupId").val(record.groupCode);
 
@@ -2156,7 +2286,7 @@
             $("#txtCageCode").removeClass("form-control").addClass("form-control edited");
 
 
-            $("#txtManufacturerCode").val(record.manCode);
+            $("#txtManufacturerCode").val(record.manId);
             $("#txtManufacturerId").val(record.manId);
             $("#txtCageCode").val(record.cageId);
             $("#txtManufacturerName").val(record.manName);
@@ -2199,6 +2329,8 @@
 
     $("#btnMecSubmit").on('click', function () {
         var record = "";
+
+        debugger;
         var nothingChecked = $('#gridMECInfo input[type=checkbox]:checked').length;
         if (nothingChecked === 1) {
             $("#gridMECInfo input[type=checkbox]:checked").each(function () {
@@ -2208,8 +2340,8 @@
                 };
             });
 
-            $("#txtMEC").removeClass("form-control").addClass("form-control edited");
-            $("#txtMEC").val(record.id);
+            $("#txtPartMEC").removeClass("form-control").addClass("form-control edited");
+            $("#txtPartMEC").val(record.id);
 
             $('#mecData').modal("toggle")
         } else {
@@ -2230,7 +2362,7 @@
                 };
             });
 
-            $("#txtANC").removeClass("form-control").addClass("form-control edited");
+            $("#txtQuantity").removeClass("form-control").addClass("form-control edited");
             $("#txtANC").val(record.id);
 
             $('#ancData').modal("toggle")

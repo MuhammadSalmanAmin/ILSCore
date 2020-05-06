@@ -24,36 +24,21 @@
             "showMethod": "fadeIn",
             "hideMethod": "fadeOut"
         }
-        debugger;
-        @*if (@TempData["Message"]!= null) {
-            toastr.error((@TempData["Message"]), "Success");
-       }*@
+     
     });
 </script>
-
+ 
 <div class="portlet red-sunglo box">
 
     <div class="portlet-title">
         <div class="caption">
             <span class="fa fa-cogs"> Parts</span>
         </div>
-
-        <div class="actions">
-            <a href="@Url.Action("AddParts", "Parts")" class="btn btn-default btn-sm">
-                <i class="fa fa-plus"></i>
-                Add part
-            </a>
-        </div>
-
     </div>
 
     <div class="portlet-body">
 
-        <div class="input-icon right">
-            <i class="fa fa-search fa-spin font-blue"></i>
-            <input type="text" class="form-control" id="filter-text-box" placeholder="Filter data...." oninput="onFilterTextBoxChanged()">
-        </div>
-
+        
         <br />
         <div id="myGrid" style="height: 420px; " class="ag-theme-material"></div>
     </div>
@@ -73,49 +58,33 @@
 
         eDiv.className = "btn-group";
 
-        eDiv.innerHTML = '<a href="javascript:;" class="btn-edit btn btn-xs blue"> Edit<i class="fa fa-edit" ></i></a><a href="javascript:;" class="btn-view btn btn-xs green"> View<i class="fa fa-search" ></i></a> <a href="javascript:;" class="btn-del btn btn-xs red"> Delete<i class="fa fa-times" ></i></a>';
+        eDiv.innerHTML = '<a href="javascript:;" class="btn-edit btn btn-xs blue"> Edit<i class="fa fa-edit" ></i></a><a href="javascript:;" class="btn-view btn btn-xs green"> View<i class="fa fa-search" ></i></a> <a href="javascript:;" class="btn-del btn btn-xs red"> Delete<i class="fa fa-times" ></i></a><a href="javascript:;" class="btn-config btn btn-xs grey"> Config<i class="fa fa-link" ></i></a>';
 
         var eButtonEdit = eDiv.querySelectorAll('.btn-edit')[0];
         var eButtonView = eDiv.querySelectorAll('.btn-view')[0];
         var eButtonDel = eDiv.querySelectorAll('.btn-del')[0];
+        var eButtonConfig = eDiv.querySelectorAll('.btn-config')[0];
 
        const partId = params.node.data["partId"];
 
         eButtonEdit.addEventListener('click', function () {
-               window.location.href = '@Url.Action("Edit", "Parts")?id=' + partId;
+               window.location.href = '@Url.Action("EditChildPart", "Parts")?id=' + partId;
         });
 
         eButtonView.addEventListener('click', function () {
-               window.location.href = '@Url.Action("Edit", "Parts")?id=' + partId;
+               window.location.href = '@Url.Action("ViewChildPart", "Parts")?id=' + partId;
         });
 
         eButtonDel.addEventListener('click', function () {
                 if (confirm("Are you sure you want to delete????"))
                 {
-                    $.ajax({
-                        type: "POST",
-                        url: "/Parts/DeletePart",
-                        data: {
-                            id: partId
-                        },
-                        success: function (response) {
-                            if (response != null) {
-                                window.location.reload();
-                              //  gridOptions.api.setRowData(gridOptions.rowData)
-
-                            } else {
-                                alert("Something went wrong");
-                            }
-                        },
-                        failure: function (response) {
-                            alert("Something went wrong");
-                        },
-                        error: function (response) {
-                            alert("Something went wrong");
-                        }
-                    });
+                  window.location.href = '@Url.Action("DeleteChildPart", "Parts")?id=' + partId;
                 }
-            });
+        });
+
+        eButtonConfig.addEventListener('click', function () {
+               window.location.href = '@Url.Action("TreeView", "Parts")?id=' + partId;
+        });
 
         return eDiv;
     }
@@ -133,20 +102,14 @@
                 caseSensitive: true,
                 suppressAndOrCondition: true
             },
-            enableRowGroup: true,
             checkboxSelection: function (params) {
                 // we put checkbox on the name if we are not doing grouping
                 return params.columnApi.getRowGroupColumns().length === 0;
             }
-            //,
-            //headerCheckboxSelection: function (params) {
-            //    // we put checkbox on the name if we are not doing grouping
-            //    return params.columnApi.getRowGroupColumns().length === 0;
-            //}
         },
         {
             headerName: "Part No",
-            field: "partNo",
+            field: "partNumber",
             filter: 'agTextColumnFilter',
             filterParams: {
                 filterOptions: ['contains', 'notContains'],
@@ -154,7 +117,6 @@
                 caseSensitive: true,
                 suppressAndOrCondition: true
             },
-            enableRowGroup: true
         },
         {
             headerName: "Part Name",
@@ -166,13 +128,46 @@
                 caseSensitive: true,
                 suppressAndOrCondition: true
             },
-            enableRowGroup: true
+        },
+        {
+            headerName: "Manufacturer Name",
+            field: "manufacturerName",
+            filter: 'agTextColumnFilter',
+            filterParams: {
+                filterOptions: ['contains', 'notContains'],
+                debounceMs: 0,
+                caseSensitive: true,
+                suppressAndOrCondition: true
+            },
+        },
+        {
+            headerName: "Description",
+            field: "description",
+            filter: 'agTextColumnFilter',
+            filterParams: {
+                filterOptions: ['contains', 'notContains'],
+                debounceMs: 0,
+                caseSensitive: true,
+                suppressAndOrCondition: true
+            },
+        },
+        {
+            headerName: "Quantity",
+            field: "quantity",
+            filter: 'agTextColumnFilter',
+            filterParams: {
+                filterOptions: ['contains', 'notContains'],
+                debounceMs: 0,
+                caseSensitive: true,
+                suppressAndOrCondition: true
+            },
         },
         {
             headerName: "Actions",
+            minWidth: 325,
             field: null,
             cellRenderer: detailsRenderer,
-
+            suppressSizeToFit: true,
         }
     ];
 
@@ -182,7 +177,7 @@
 
     var autoGroupColumnDef = {
         headerName: 'Part Id',
-        minWidth: 170,
+
         field: 'partId',
         valueGetter: function (params) {
             if (params.node.group) {
@@ -198,40 +193,6 @@
             checkbox: true,
         }
     };
-
-
-    //var gridOptions = {
-    //    defaultColDef: {
-    //        editable: true,
-    //        enableRowGroup: true,
-    //        enablePivot: true,
-    //        enableValue: true,
-    //        sortable: true,
-    //        resizable: true,
-    //        filter: true,
-    //        flex: 1,
-    //        minWidth: 100,
-    //    },
-
-    //    //suppressRowClickSelection: true,
-    //    //groupSelectsChildren: true,
-    //    //rowSelection: 'multiple',
-    //    //rowGroupPanelShow: 'always',
-    //    //pivotPanelShow: 'always',
-    //    //enableRangeSelection: true,
-
-    //    columnDefs: columnDefs,
-    //    paginationAutoPageSize: true,
-    //    pagination: true,
-    //    autoGroupColumnDef: autoGroupColumnDef,
-
-    //      // Header grouping
-    //    suppressDragLeaveHidesColumns: true,
-    //    suppressMakeColumnVisibleAfterUnGroup: true,
-    //    rowGroupPanelShow: 'always',
-    //    //
-    //};
-
 
     var gridOptions = {
         defaultColDef: {
@@ -253,11 +214,7 @@
         paginationPageSize: 10,
         pagination: true,
         //
-        // Header grouping
-        suppressDragLeaveHidesColumns: true,
-        suppressMakeColumnVisibleAfterUnGroup: true,
-        rowGroupPanelShow: 'always',
-        //
+
 
     };
 
@@ -275,7 +232,7 @@
     new agGrid.Grid(eGridDiv, gridOptions);
 
 
-    agGrid.simpleHttpRequest({ url: "https://localhost:5001/Parts/GetPartsList" }).then(function (data) {
+    agGrid.simpleHttpRequest({ url: "https://localhost:5001/Parts/GetPartsData" }).then(function (data) {
         gridOptions.api.setRowData(data);
     });
 

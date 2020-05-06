@@ -21,13 +21,45 @@
     <link rel="stylesheet" href="@Url.Content("~/assets/global/plugins/fullcalendar/fullcalendar.min.css")" />
     <link rel="stylesheet" href="@Url.Content("~/assets/global/plugins/jqvmap/jqvmap/jqvmap.css")" />
 
+    <!-- ag grid start -->
+
+    <link rel="stylesheet" href="@Url.Content("~/assets/layouts/layout/css/ag-grid.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/assets/layouts/layout/css/ag-theme-balham.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/assets/global/css/ag-theme-material.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/assets/global/css/font.googleapis.com.roboto.css")" />
+
+    <!-- ag grid end  -->
+
+    <link rel="stylesheet" href="@Url.Content("~/assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css")" />
+
+    <!-- File input start -->
+    <link rel="stylesheet" href="@Url.Content("~/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css")" />
+    <!-- File input end  -->
+
+    <!-- datatables start -->
+    <link rel="stylesheet" href="@Url.Content("~/assets/global/plugins/datatables/datatables.min.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css")" />
+    <!-- datatables end -->
+
+    <!-- select 2 start-->
+    <link rel="stylesheet" href="@Url.Content("~/assets/layouts/layout4/css/select2.min.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/assets/global/plugins/select2/css/select2.min.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/assets/global/plugins/select2/css/select2-bootstrap.min.css")" />
+    <!-- select 2 end-->
+    <!-- Toastr start -->
+    <link rel="stylesheet" href="@Url.Content("~/assets/global/plugins/bootstrap-toastr/toastr.min.css")" />
+    <!-- Toastr end -->
+
+    <link rel="stylesheet" href="@Url.Content("~/assets/pages/css/login-5.min.css")" />
+
+    <!-- Js Tree start -->
+    <link rel="stylesheet" href="@Url.Content("~/assets/global/plugins/jstree/dist/themes/default/style.min.css")" />
+    <!-- Js Tree end -->
     <!-- END PAGE LEVEL PLUGINS -->
     <!-- BEGIN THEME GLOBAL STYLES -->
-
     <link rel="stylesheet" href="@Url.Content("~/assets/global/css/components-md.min.css")" />
     <link rel="stylesheet" href="@Url.Content("~/assets/global/css/plugins-md.min.css")" />
-    <link rel="stylesheet" href="@Url.Content("~/assets/global/plugins/font-awesome/css/font-awesome.min.css")" />
-    <link rel="stylesheet" href="@Url.Content("~/assets/global/plugins/font-awesome/css/font-awesome.min.css")" />
 
     <!-- END THEME GLOBAL STYLES -->
     <!-- BEGIN THEME LAYOUT STYLES -->
@@ -39,29 +71,6 @@
     <!-- END THEME LAYOUT STYLES -->
     <link rel="shortcut icon" href="favicon.ico" />
 
-    <link rel="stylesheet" href="@Url.Content("~/assets/layouts/layout/css/ag-grid.css")" />
-    <link rel="stylesheet" href="@Url.Content("~/assets/layouts/layout/css/ag-theme-balham.css")" />
-
-    <link rel="stylesheet" href="@Url.Content("~/assets/global/css/ag-theme-material.css")" />
-    <link rel="stylesheet" href="@Url.Content("~/assets/global/css/font.googleapis.com.roboto.css")" />
-
-    <link rel="stylesheet" href="@Url.Content("~/assets/global/plugins/datatables/datatables.min.css")" />
-    <link rel="stylesheet" href="@Url.Content("~/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css")" />
-
-    <link rel="stylesheet" href="@Url.Content("~/assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css")" />
-    <link rel="stylesheet" href="@Url.Content("~/assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css")" />
-
-    <link rel="stylesheet" href="@Url.Content("~/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css")" />
-
-    <link rel="stylesheet" href="@Url.Content("~/assets/layouts/layout4/css/select2.min.css")" />
-
-    <link rel="stylesheet" href="@Url.Content("~/assets/global/plugins/bootstrap-toastr/toastr.min.css")" />
-
-    <link rel="stylesheet" href="@Url.Content("~/assets/global/plugins/select2/css/select2.min.css")" />
-    <link rel="stylesheet" href="@Url.Content("~/assets/global/plugins/select2/css/select2-bootstrap.min.css")" />
-    <link rel="stylesheet" href="@Url.Content("~/assets/pages/css/login-5.min.css")" />
-
-    
 </head>
 <!-- END HEAD -->
 
@@ -567,12 +576,18 @@
                     </li>
 
                     <li class="nav-item  ">
-                        <a href="javascript:;" class="nav-link nav-toggle">
+                        <a href='@Url.Action("Index", "Parts")' class="nav-link nav-toggle">
                             <i class="icon-puzzle"></i>
                             <span class="title">Parts</span>
                             <span class="arrow"></span>
                         </a>
                         <ul class="sub-menu">
+                            <li class="nav-item  ">
+                                <a href='@Url.Action("Index", "Parts")' class="nav-link ">
+                                    <i class="icon-diamond"></i>
+                                    <span class="title">Index</span>
+                                </a>
+                            </li>
                             <li class="nav-item  ">
                                 <a href='@Url.Action("AddParts", "Parts")' class="nav-link ">
                                     <i class="icon-diamond"></i>
@@ -580,7 +595,7 @@
                                 </a>
                             </li>
                             <li class="nav-item  ">
-                                <a href='@Url.Action("AddParts", "Parts")' class="nav-link ">
+                                <a href='@Url.Action("GetAssociatedPartView", "Parts")' class="nav-link ">
                                     <i class="icon-diamond"></i>
                                     <span class="title">Parts List</span>
                                 </a>
@@ -1259,8 +1274,6 @@
 
     <!-- BEGIN CORE PLUGINS -->
 
-
-
     <script src="@Url.Content("~/assets/global/plugins/jquery.min.js")"></script>
     <script src="@Url.Content("~/assets/global/plugins/bootstrap/js/bootstrap.min.js")"></script>
     <script src="@Url.Content("~/assets/global/plugins/js.cookie.min.js")"></script>
@@ -1271,13 +1284,6 @@
     <!-- END CORE PLUGINS -->
     <!-- BEGIN PAGE LEVEL PLUGINS -->
 
-
-    <script src="@Url.Content("~/assets/global/plugins/bootstrap/js/bootstrap.min.js")"></script>
-    <script src="@Url.Content("~/assets/global/plugins/js.cookie.min.js")"></script>
-    <script src="@Url.Content("~/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js")"></script>
-    <script src="@Url.Content("~/assets/global/plugins/jquery.blockui.min.js")"></script>
-    <script src="@Url.Content("~/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js")"></script>
-
     <script src="@Url.Content("~/assets/global/plugins/moment.min.js")"></script>
     <script src="@Url.Content("~/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js")"></script>
     <script src="@Url.Content("~/assets/global/plugins/morris/morris.min.js")"></script>
@@ -1285,44 +1291,48 @@
     <script src="@Url.Content("~/assets/global/plugins/counterup/jquery.waypoints.min.js")"></script>
     <script src="@Url.Content("~/assets/global/plugins/counterup/jquery.counterup.min.js")"></script>
 
-
-    <!-- END PAGE LEVEL PLUGINS -->
-    <!-- BEGIN THEME GLOBAL SCRIPTS -->
-
-    <script src="@Url.Content("~/assets/global/scripts/app.min.js")"></script>
-
-    <!-- END THEME GLOBAL SCRIPTS -->
-    <!-- BEGIN PAGE LEVEL SCRIPTS -->
-
-    <script src="@Url.Content("~/assets/pages/scripts/dashboard.min.js")"></script>
-
-    <!-- END PAGE LEVEL SCRIPTS -->
-    <!-- BEGIN THEME LAYOUT SCRIPTS -->
-
-    <script src="@Url.Content("~/assets/layouts/layout4/scripts/layout.min.js")"></script>
-    <script src="@Url.Content("~/assets/layouts/layout4/scripts/demo.min.js")"></script>
-    <script src="@Url.Content("~/assets/layouts/global/scripts/quick-sidebar.min.js")"></script>
-    <script src="@Url.Content("~/assets/layouts/global/scripts/quick-nav.min.js")"></script>
-
-
-    <script src="@Url.Content("~/assets/pages/scripts/ui-extended-modals.min.js")"></script>
-    <script src="@Url.Content("~/assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js")"></script>
-    <script src="@Url.Content("~/assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js")"></script>
-
-    @*<script src="@Url.Content("~/Scripts/kendo.all.min.js")"></script>
-        <script src="@Url.Content("~/Scripts/kendo.aspnetmvc.min.js")"></script>*@
-
+    <script src="@Url.Content("~/assets/global/plugins/jstree/dist/jstree.min.js")"></script>
+    <script src="@Url.Content("~/assets/pages/scripts/ui-tree.js")"></script>
 
 
     <script src="@Url.Content("~/assets/global/scripts/datatable.js")"></script>
     <script src="@Url.Content("~/assets/global/plugins/datatables/datatables.min.js")"></script>
     <script src="@Url.Content("~/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js")"></script>
-    <script src="@Url.Content("~/assets/pages/scripts/table-datatables-managed.min.js")"></script>
 
     <script src="@Url.Content("~/assets/global/plugins/bootstrap-toastr/toastr.min.js")"></script>
+
+    <!-- END PAGE LEVEL PLUGINS -->
+
+    <!-- BEGIN THEME GLOBAL SCRIPTS -->
+
+    <script src="@Url.Content("~/assets/global/scripts/app.min.js")"></script>
+
+    <!-- END THEME GLOBAL SCRIPTS -->
+
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+
+    <script src="@Url.Content("~/assets/pages/scripts/table-datatables-managed.min.js")"></script>
+
     <script src="@Url.Content("~/assets/pages/scripts/ui-toastr.min.js")"></script>
 
+    <script src="@Url.Content("~/assets/pages/scripts/ui-tree.js")"></script>
+   
+    <script src="@Url.Content("~/assets/pages/scripts/dashboard.min.js")"></script>
+
+    <script src="@Url.Content("~/assets/pages/scripts/ui-extended-modals.min.js")"></script>
+    <script src="@Url.Content("~/assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js")"></script>
+    <script src="@Url.Content("~/assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js")"></script>
+
+
+    <!-- END PAGE LEVEL PLUGINS -->
+
+    <!-- BEGIN THEME LAYOUT SCRIPTS -->
+    <script src="@Url.Content("~/assets/layouts/layout4/scripts/layout.min.js")"></script>
+    <script src="@Url.Content("~/assets/layouts/layout4/scripts/demo.min.js")"></script>
+    <script src="@Url.Content("~/assets/layouts/global/scripts/quick-sidebar.min.js")"></script>
+    <script src="@Url.Content("~/assets/layouts/global/scripts/quick-nav.min.js")"></script>
     <!-- END THEME LAYOUT SCRIPTS -->
+
 
     <script>
 
@@ -1351,8 +1361,6 @@
                 $('#radio1003').attr('checked', 'checked');
             });
         })
-
-
 
     </script>
 </body>

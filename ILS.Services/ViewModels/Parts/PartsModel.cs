@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ILS.Services
+namespace ILS
 {
     public class PartsViewModel
     {

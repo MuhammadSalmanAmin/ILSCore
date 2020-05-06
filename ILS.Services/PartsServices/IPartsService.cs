@@ -2,61 +2,67 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Data;
 
 namespace ILS.Services
 {
-    public abstract class IPartsService : IDisposable
+    public   interface IPartsService : IDisposable
     {
-        public abstract dynamic GetChildPartList(string parentPartId, bool exclude);
 
-        public abstract void AddParts(AddPartViewModel model);
-        public abstract List<MimsCParts> GetPartsList();
+        public abstract List<CustomClass> GetChildPartList(string parentPartId, bool getChildRECORDS);
+        public abstract    void AddParts(AddPartViewModel model);
+        public abstract   MimsCParts GetPartById(int id);
 
-        public abstract List<MimsCPartvendorlist> GetVendorList();
+        public abstract   List<MimsCParts> GetPartsList();
 
-        public abstract List<MimsCParttype> GetPartType();
+        public abstract   List<MimsCPartvendorlist> GetVendorList();
 
-        public abstract List<MimsCPartcat> GetPartsCategory();
+        public abstract   List<MimsCParttype> GetPartType();
 
-        public abstract List<MimsXCurrency> GetCurrency();
+        public abstract   List<MimsCPartcat> GetPartsCategory();
 
-        public abstract List<MimsXUom> GetUnitItems();
-        public abstract List<MimsXGroup> GetGroupInfo();
+        public abstract   List<MimsXCurrency> GetCurrency();
 
-        public abstract List<MimsCCage> GetCageInfo();
-        public abstract List<MimsCPartvendors> GetVendorInfo();
+        public abstract   List<MimsXUom> GetUnitItems();
+        public abstract   List<MimsXGroup> GetGroupInfo();
 
-        public abstract List<MimsCMcat> GetMaterialcCategoryItems();
+        public abstract   List<MimsCCage> GetCageInfo(int? id=null);
+        public abstract   List<MimsCPartvendors> GetVendorInfo();
 
-        public abstract List<MimsXAp> GetAPItemsList();
+        public abstract   List<MimsCMcat> GetMaterialcCategoryItems();
 
-        public abstract List<MimsXAc> GetACItemsList();
+        public abstract   List<MimsXAp> GetAPItemsList();
 
-        public abstract List<MimsXAsc> GetASCItemsList();
-        public abstract List<MimsXMec> GetMECInfo();
+        public abstract   List<MimsXAc> GetACItemsList();
 
-        public abstract List<MimsXAnc> GetANCInfo();
+        public abstract   List<MimsXAsc> GetASCItemsList();
+        public abstract   List<MimsXMec> GetMECInfo();
 
-        public abstract List<MimsXApp> GetAPPInfo();
-        public abstract List<MimsXCustody> GetCustodyInfo();
+        public abstract   List<MimsXAnc> GetANCInfo();
 
-        public abstract List<MimsXSmc> GetSMCInfo();
-        public abstract List<MimsXShelflife> GetShelfLifeItems();
-        public abstract List<MimsXDerivative> GetDerivativeItems();
-        public abstract List<MimsXSmic> GetSMICItems();
+        public abstract   List<MimsXApp> GetAPPInfo();
+        public abstract   List<MimsXCustody> GetCustodyInfo();
 
-        public abstract List<MimsXTimeperiod> GetLeadTimeItems();
-        public abstract List<MimsXTss> GetTSSItems();
-        public abstract List<MimsXOsi> GetOSIItems();
+        public abstract   List<MimsXSmc> GetSMCInfo();
+        public abstract   List<MimsXShelflife> GetShelfLifeItems();
+        public abstract   List<MimsXDerivative> GetDerivativeItems();
+        public abstract   List<MimsXSmic> GetSMICItems();
 
-        public abstract List<MimsXUom> GetUnitCubeItems();
-        public abstract List<MimsXSecurity> GetSecurityItems();
+        public abstract   List<MimsXTimeperiod> GetLeadTimeItems();
+        public abstract   List<MimsXTss> GetTSSItems();
+        public abstract   List<MimsXOsi> GetOSIItems();
 
-        public abstract List<MimsXSla> GetSLAInfo();
-        public void Dispose()
-        {
+        public abstract   List<MimsXUom> GetUnitCubeItems();
+        public abstract   List<MimsXSecurity> GetSecurityItems();
 
-        }
+        public abstract   List<MimsXSla> GetSLAInfo();
+
+        public abstract DataTable GetTreeViewData(string partId);
+        public abstract List<CustomClass> GetPartsData();
+
+        public abstract bool DeletePart(string partId);
+
+        public abstract bool LinkPart(string quantity, string parentPartId, string childPartId);
 
     }
 }
