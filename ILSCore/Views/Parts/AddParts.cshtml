@@ -6,9 +6,12 @@
 
 <script src="@Url.Content("~/assets/global/plugins/jquery.min.js")"></script>
 
-<script src="@Url.Content("~/assets/global/scripts/app.min.js")"></script>
+<script src="@Url.Content("~/assets/global/plugins/jquery-ui/jquery-ui.min.js")"></script>
+
 <script src="@Url.Content("~/assets/pages/scripts/portlet-draggable.min.js")"></script>
 <script src="@Url.Content("~/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js")"></script>
+
+<script src="@Url.Content("~/assets/global/scripts/app.min.js")"></script>
 
 
 <script>
@@ -1033,7 +1036,7 @@
 
 </script>
 
-<div class="portlet portlet-sortable light bordered bg-inverse">
+<div class="portlet portlet-sortable light bordered">
     <div class="portlet-title">
         <div class="caption font-green">
             <i class="icon-pin font-green"></i>
@@ -1231,8 +1234,8 @@
 
                                 <div class="form-group form-md-line-input form-md-floating-label">
 
-                                    @Html.TextBoxFor(x => x.ManufacturerId, new { @class = "form-control", id = "txtManufacturerCode" , disabled = "disabled" })
-                                    @Html.HiddenFor(x => x.ManufacturerId, new { @class = "form-control", id = "txtManufacturerId" , disabled = "disabled" })
+                                    @Html.TextBoxFor(x => x.ManufacturerId, new { @class = "form-control", id = "txtManufacturerCode", disabled = "disabled" })
+                                    @Html.HiddenFor(x => x.ManufacturerId, new { @class = "form-control", id = "txtManufacturerId", disabled = "disabled" })
                                     <label lbl="lblManufacturerId" for="form_control_1">Manufacturer Id</label>
                                     <span class="help-block">Please input manufaturer id...</span>
                                 </div>

@@ -1,4 +1,5 @@
 ﻿@using ILS.Services.ViewModels
+
 <script src="@Url.Content("~/assets/global/plugins/jquery.min.js")"></script>
 <script src="@Url.Content("~/assets/pages/scripts/table-datatables-responsive.min.js")"></script>
 <script src="@Url.Content("~/assets/pages/scripts/ag-grid-enterprise.min.noStyle.js")"></script>
@@ -32,7 +33,14 @@
 
     <div class="portlet-title">
         <div class="caption">
-            <span class="fa fa-cogs"> Parts</span>
+            @if (ViewData["Mode"]?.ToString() == "Equipment")
+            {
+                <span class="fa fa-cogs"> Equipment Configuration</span>
+            }
+            else
+            {
+                <span class="fa fa-cogs"> Parts List</span>
+            }
         </div>
     </div>
 
@@ -88,8 +96,6 @@
 
         return eDiv;
     }
-
-
 
     // specify the columns
     var columnDefs = [
@@ -187,8 +193,6 @@
             }
         },
         headerCheckboxSelection: true,
-        // headerCheckboxSelectionFilteredOnly: true,
-        //cellRenderer: 'agGroupCellRenderer',
         cellRendererParams: {
             checkbox: true,
         }
@@ -214,15 +218,7 @@
         paginationPageSize: 10,
         pagination: true,
         //
-
-
     };
-
-    //var allColumnsIds = [];
-    //gridOptions.columnApi.getAllColumns().forEach(function (column) {
-    //    allColumnsIds.push(column.colId);
-    //});
-    //gridOptions.columnApi.autoSizeColumns(allColumnsIds, false);
 
     // lookup the container we want the Grid to use
     var eGridDiv = document.querySelector('#myGrid');
@@ -231,8 +227,8 @@
     // create the grid passing in the div to use together with the columns & data we want to use
     new agGrid.Grid(eGridDiv, gridOptions);
 
-
-    agGrid.simpleHttpRequest({ url: "https://localhost:5001/Parts/GetPartsData" }).then(function (data) {
+    var pageMode = '@ViewData["Mode"]';
+    agGrid.simpleHttpRequest({ url: "https://localhost:5001/Parts/GetPartsData?filter=" + pageMode }).then(function (data) {
         gridOptions.api.setRowData(data);
     });
 

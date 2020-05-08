@@ -18,6 +18,7 @@ namespace ILS.DAL.Models
         public string SiteType { get; set; }
         public DateTime? InductionDate { get; set; }
         public byte[] SitePic { get; set; }
+        public int? Configured { get; set; }
 
         public virtual ICollection<MimsIDemands> MimsIDemandsDemandeeUnitNavigation { get; set; }
         public virtual ICollection<MimsIDemands> MimsIDemandsUnit { get; set; }

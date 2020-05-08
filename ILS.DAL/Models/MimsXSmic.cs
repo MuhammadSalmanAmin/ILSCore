@@ -7,15 +7,13 @@ namespace ILS.DAL.Models
     {
         public MimsXSmic()
         {
-            MimsCPartsOldSmicNavigation = new HashSet<MimsCParts>();
-            MimsCPartsSmicNavigation = new HashSet<MimsCParts>();
+            MimsCParts = new HashSet<MimsCParts>();
         }
 
         public string SmicCode { get; set; }
         public string SmicDesc { get; set; }
         public int SmicId { get; set; }
 
-        public virtual ICollection<MimsCParts> MimsCPartsOldSmicNavigation { get; set; }
-        public virtual ICollection<MimsCParts> MimsCPartsSmicNavigation { get; set; }
+        public virtual ICollection<MimsCParts> MimsCParts { get; set; }
     }
 }

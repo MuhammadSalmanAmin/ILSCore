@@ -1,0 +1,99 @@
+﻿@using ILS
+@model SiteConfigSearchViewModel
+
+<script src="@Url.Content("~/assets/global/plugins/jquery.min.js")"></script>
+
+<script src="@Url.Content("~/assets/global/plugins/jquery-ui/jquery-ui.min.js")"></script>
+<script src="@Url.Content("~/assets/global/scripts/app.min.js")"></script>
+
+
+
+<div class="portlet portlet-sortable light bordered">
+    <div class="portlet-title ui-sortable-handle">
+        <div class="caption font-green">
+            <i class="icon-settings font-green"></i>
+            <span class="caption-subject bold"> Site Configuration</span>
+        </div>
+
+        <div class="tools">
+            <a href="" class="collapse"> </a>
+            <a href="" class="fullscreen"> </a>
+        </div>
+    </div>
+
+    <div class="portlet-body form">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="form-group form-md-line-input form-md-floating-label">
+                    @Html.DropDownListFor(x => x.SiteId, Model.ConfiguredSitesList, new { @class = "form-control", id = "ddSitesList" })
+                    <label id="lblSiteId" for="form_control_1">Select Site</label>
+                    <span class="help-block">@Html.ValidationMessageFor(x => x.SiteId)</span>
+                </div>
+            </div>
+
+            <div class="col-md-7">
+                <div class="form-group form-md-line-input form-md-floating-label">
+                    <div class="input-group">
+                        <div class="input-group-control">
+                            @Html.DropDownListFor(x => x.SchemeId, Model.Schemes, new { @class = "form-control", id = "ddSchemesList" })
+                            <label id="lblSchemeId" for="form_control_1">Select Scheme</label>
+                            <span class="help-block">@Html.ValidationMessageFor(x => x.SchemeId)</span>
+                        </div>
+                        <span class="input-group-btn btn-left">
+                            <button id="btnViewConfiguration" class="btn green btn-large" type="button">
+                                View
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+    //$(document).ready(function () {
+    //    var ddSite = $("#ddSite");
+    //    ddSite.empty().append('<option selected="selected" value="0" disabled = "disabled">Loading.....</option>');
+    //    $.ajax({
+    //        type: "POST",
+    //        url: "/Parts/LoadConfiguredSites",
+    //        data: '{}',
+    //        contentType: "application/json; charset=utf-8",
+    //        dataType: "json",
+    //        success: function (response) {
+    //            ddSite.empty().append('<option selected="selected" value="0">Please select</option>');
+    //            $.each(response, function () {
+    //                ddSite.append($("<option></option>").val(this['Value']).html(this['Text']));
+    //            });
+    //        },
+    //        failure: function (response) {
+    //            alert(response.responseText);
+    //        },
+    //        error: function (response) {
+    //            alert(response.responseText);
+    //        }
+    //    });
+    //});
+
+
+    $(document).ready(function () {
+        $.ajax({
+            url: "/Parts/LoadConfiguredSites",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            datatype: "json",
+            success: function (result) {
+                $(result).each(function () {
+                    $("#FromJson").append($("<option></option>").val(this.SiteNo).html(this.SiteName));
+                });
+            },
+            error: function (data) { }
+        });
+    });
+</script>

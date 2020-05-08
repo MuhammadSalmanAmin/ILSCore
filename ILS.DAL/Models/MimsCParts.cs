@@ -8,8 +8,7 @@ namespace ILS.DAL.Models
         public MimsCParts()
         {
             MimsCApl = new HashSet<MimsCApl>();
-            MimsCCpartsPart1 = new HashSet<MimsCCparts>();
-            MimsCCpartsPartNavigation = new HashSet<MimsCCparts>();
+            MimsCCparts = new HashSet<MimsCCparts>();
             MimsCEqpConfig_1Navigation = new HashSet<MimsCEqpConfig>();
             MimsCEqpConfig_2Navigation = new HashSet<MimsCEqpConfig>();
             MimsCEqpConfig_3Navigation = new HashSet<MimsCEqpConfig>();
@@ -96,7 +95,6 @@ namespace ILS.DAL.Models
         public virtual MimsXTimeperiod LeadTime { get; set; }
         public virtual MimsCCage Man { get; set; }
         public virtual MimsCMcat McatNavigation { get; set; }
-        public virtual MimsXSmic OldSmicNavigation { get; set; }
         public virtual MimsXOsi OsiNavigation { get; set; }
         public virtual MimsCPartcat PartCatNavigation { get; set; }
         public virtual MimsXMec PartMecNavigation { get; set; }
@@ -107,11 +105,9 @@ namespace ILS.DAL.Models
         public virtual MimsXSmic SmicNavigation { get; set; }
         public virtual MimsXTss Tss { get; set; }
         public virtual MimsXUom UnitCubeNavigation { get; set; }
-        public virtual MimsXUom UnitOfItemNavigation { get; set; }
         public virtual MimsCPartdetails MimsCPartdetails { get; set; }
         public virtual ICollection<MimsCApl> MimsCApl { get; set; }
-        public virtual ICollection<MimsCCparts> MimsCCpartsPart1 { get; set; }
-        public virtual ICollection<MimsCCparts> MimsCCpartsPartNavigation { get; set; }
+        public virtual ICollection<MimsCCparts> MimsCCparts { get; set; }
         public virtual ICollection<MimsCEqpConfig> MimsCEqpConfig_1Navigation { get; set; }
         public virtual ICollection<MimsCEqpConfig> MimsCEqpConfig_2Navigation { get; set; }
         public virtual ICollection<MimsCEqpConfig> MimsCEqpConfig_3Navigation { get; set; }

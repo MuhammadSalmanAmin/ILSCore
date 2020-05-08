@@ -246,29 +246,59 @@ namespace ILS.Services
             return dt;
         }
 
-        public List<CustomClass> GetPartsData()
+        /// <summary>
+        /// Review it
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        public List<CustomClass> GetPartsData(string filter = "A || X")
         {
             try
             {
-                var query = from u in _context.MimsCParts
-                            join p in _context.MimsCCparts on u.PartId equals p.Part
-                            into gj
-                            from x in gj.DefaultIfEmpty()
-                            where u.PartType == "A" || u.PartType == "X"
-                            join manufacturer in _context.MimsCCage on u.ManId equals manufacturer.ManId
-                            join partType in _context.MimsCParttype on u.PartType equals partType.PartType
-                            group u by new { u.PartName, u.PartId, manufacturer.ManufacturerName, partType.TypeDesc, u.PartNo } into g
-                            select new CustomClass
-                            {
-                                PartId = g.Key.PartId.ToString(),
-                                ManufacturerName = g.Key.ManufacturerName,
-                                Description = g.Key.TypeDesc,
-                                PartNumber = g.Key.PartNo,
-                                PartName = g.Key.PartName,
-                                Quantity = g.Count()
-                            };
+                if (filter == "X")
+                {
+                    var query = from u in _context.MimsCParts
+                                join p in _context.MimsCCparts on u.PartId equals p.Part
+                                into gj
+                                from x in gj.DefaultIfEmpty()
+                                where u.PartType == "X" 
+                                join manufacturer in _context.MimsCCage on u.ManId equals manufacturer.ManId
+                                join partType in _context.MimsCParttype on u.PartType equals partType.PartType
+                                group u by new { u.PartName, u.PartId, manufacturer.ManufacturerName, partType.TypeDesc, u.PartNo } into g
+                                select new CustomClass
+                                {
+                                    PartId = g.Key.PartId.ToString(),
+                                    ManufacturerName = g.Key.ManufacturerName,
+                                    Description = g.Key.TypeDesc,
+                                    PartNumber = g.Key.PartNo,
+                                    PartName = g.Key.PartName,
+                                    Quantity = g.Count()
+                                };
 
-                return query.ToList();
+                    return query.ToList();
+                }
+                else
+                {
+                    var query = from u in _context.MimsCParts
+                                join p in _context.MimsCCparts on u.PartId equals p.Part
+                                into gj
+                                from x in gj.DefaultIfEmpty()
+                                where u.PartType == "A" || u.PartType == "X"
+                                join manufacturer in _context.MimsCCage on u.ManId equals manufacturer.ManId
+                                join partType in _context.MimsCParttype on u.PartType equals partType.PartType
+                                group u by new { u.PartName, u.PartId, manufacturer.ManufacturerName, partType.TypeDesc, u.PartNo } into g
+                                select new CustomClass
+                                {
+                                    PartId = g.Key.PartId.ToString(),
+                                    ManufacturerName = g.Key.ManufacturerName,
+                                    Description = g.Key.TypeDesc,
+                                    PartNumber = g.Key.PartNo,
+                                    PartName = g.Key.PartName,
+                                    Quantity = g.Count()
+                                };
+
+                    return query.ToList();
+                }
             }
             catch (Exception ex)
             {
@@ -305,12 +335,14 @@ namespace ILS.Services
             return _context.SaveChanges() == 1 ? true : false;
         }
 
+        public IEnumerable<MimsASites> GetAllSite()
+        {
+            return _context.MimsASites;
+        }
         public int GetHashCode()
         {
             return base.GetHashCode();
         }
-
-
         public void Dispose()
         {
 

@@ -13,7 +13,6 @@ namespace ILS.DAL.Models
 
         public virtual MimsXYesno IsAplNavigation { get; set; }
         public virtual MimsXYesno IsSnslNavigation { get; set; }
-        public virtual MimsCParts Part1 { get; set; }
         public virtual MimsCParts PartNavigation { get; set; }
     }
 }

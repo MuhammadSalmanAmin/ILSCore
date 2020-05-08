@@ -124,6 +124,7 @@ namespace ILS.DAL.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
+
                 optionsBuilder.UseSqlServer("Server=.\\SQLExpress;Database=ILMM;Trusted_Connection=True;");
             }
         }
@@ -801,6 +802,8 @@ namespace ILS.DAL.Models
                     .HasColumnName("SITE_NO")
                     .ValueGeneratedNever();
 
+                entity.Property(e => e.Configured).HasColumnName("CONFIGURED");
+
                 entity.Property(e => e.InductionDate)
                     .HasColumnName("INDUCTION_DATE")
                     .HasColumnType("date");
@@ -996,16 +999,10 @@ namespace ILS.DAL.Models
                     .HasConstraintName("FK_MIMS_C_CPARTS_MIMS_X_YESNO1");
 
                 entity.HasOne(d => d.PartNavigation)
-                    .WithMany(p => p.MimsCCpartsPartNavigation)
+                    .WithMany(p => p.MimsCCparts)
                     .HasForeignKey(d => d.Part)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_MIMS_C_CPARTS_MIMS_C_PARTS");
-
-                entity.HasOne(d => d.Part1)
-                    .WithMany(p => p.MimsCCpartsPart1)
-                    .HasForeignKey(d => d.PartId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_MIMS_C_CPARTS_MIMS_C_PARTS1");
             });
 
             modelBuilder.Entity<MimsCEqpConfig>(entity =>
@@ -1541,8 +1538,8 @@ namespace ILS.DAL.Models
 
                 entity.HasOne(d => d.AcNavigation)
                     .WithMany(p => p.MimsCParts)
-                 .HasForeignKey(d => d.Ac)
-                 .HasConstraintName("FK_MIMS_C_PARTS_MIMS_X_AC");
+                    .HasForeignKey(d => d.Ac)
+                    .HasConstraintName("FK_MIMS_C_PARTS_MIMS_X_AC");
 
                 entity.HasOne(d => d.AncNavigation)
                     .WithMany(p => p.MimsCParts)
@@ -1576,13 +1573,13 @@ namespace ILS.DAL.Models
 
                 entity.HasOne(d => d.Derivative)
                     .WithMany(p => p.MimsCParts)
-                   .HasForeignKey(d => d.DerivativeId)
-                 .HasConstraintName("FK_MIMS_C_PARTS_MIMS_X_DERIVATIVE");
+                    .HasForeignKey(d => d.DerivativeId)
+                    .HasConstraintName("FK_MIMS_C_PARTS_MIMS_X_DERIVATIVE");
 
                 entity.HasOne(d => d.DocSec)
                     .WithMany(p => p.MimsCParts)
                     .HasForeignKey(d => d.DocSecId)
-                  .HasConstraintName("FK_MIMS_C_PARTS_MIMS_X_SECURITY");
+                    .HasConstraintName("FK_MIMS_C_PARTS_MIMS_X_SECURITY");
 
                 entity.HasOne(d => d.HZECodeNavigation)
                     .WithMany(p => p.MimsCParts)
@@ -1596,25 +1593,20 @@ namespace ILS.DAL.Models
 
                 entity.HasOne(d => d.Man)
                     .WithMany(p => p.MimsCParts)
-                     .HasForeignKey(d => d.ManId)
+                    .HasForeignKey(d => d.ManId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_MIMS_C_PARTS_MIMS_C_CAGE");
 
                 entity.HasOne(d => d.McatNavigation)
                     .WithMany(p => p.MimsCParts)
-                     .HasForeignKey(d => d.Mcat)
+                    .HasForeignKey(d => d.Mcat)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_MIMS_C_PARTS_MIMS_C_MCAT");
 
-                entity.HasOne(d => d.OldSmicNavigation)
-                    .WithMany(p => p.MimsCPartsOldSmicNavigation)
-.HasForeignKey(d => d.OldSmic)
-      .HasConstraintName("FK_MIMS_C_PARTS_MIMS_X_SMIC1");
-
                 entity.HasOne(d => d.OsiNavigation)
                     .WithMany(p => p.MimsCParts)
-                   .HasForeignKey(d => d.Osi)
-                   .HasConstraintName("FK_MIMS_C_PARTS_MIMS_X_OSI");
+                    .HasForeignKey(d => d.Osi)
+                    .HasConstraintName("FK_MIMS_C_PARTS_MIMS_X_OSI");
 
                 entity.HasOne(d => d.PartCatNavigation)
                     .WithMany(p => p.MimsCParts)
@@ -1628,9 +1620,9 @@ namespace ILS.DAL.Models
 
                 entity.HasOne(d => d.PartTypeNavigation)
                     .WithMany(p => p.MimsCParts)
-                   .HasForeignKey(d => d.PartType)
+                    .HasForeignKey(d => d.PartType)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                  .HasConstraintName("FK_MIMS_C_PARTS_MIMS_C_PARTTYPE");
+                    .HasConstraintName("FK_MIMS_C_PARTS_MIMS_C_PARTTYPE");
 
                 entity.HasOne(d => d.ShelfLife)
                     .WithMany(p => p.MimsCParts)
@@ -1648,7 +1640,7 @@ namespace ILS.DAL.Models
                     .HasConstraintName("FK_MIMS_C_PARTS_MIMS_X_SMC");
 
                 entity.HasOne(d => d.SmicNavigation)
-                    .WithMany(p => p.MimsCPartsSmicNavigation)
+                    .WithMany(p => p.MimsCParts)
                     .HasForeignKey(d => d.Smic)
                     .HasConstraintName("FK_MIMS_C_PARTS_MIMS_X_SMIC");
 
@@ -1658,14 +1650,9 @@ namespace ILS.DAL.Models
                     .HasConstraintName("FK_MIMS_C_PARTS_MIMS_X_TSS");
 
                 entity.HasOne(d => d.UnitCubeNavigation)
-                    .WithMany(p => p.MimsCPartsUnitCubeNavigation)
+                    .WithMany(p => p.MimsCParts)
                     .HasForeignKey(d => d.UnitCube)
                     .HasConstraintName("FK_MIMS_C_PARTS_MIMS_X_UOM");
-
-                entity.HasOne(d => d.UnitOfItemNavigation)
-                    .WithMany(p => p.MimsCPartsUnitOfItemNavigation)
-                    .HasForeignKey(d => d.UnitOfItem)
-                    .HasConstraintName("FK_MIMS_C_PARTS_MIMS_X_UOM1");
             });
 
             modelBuilder.Entity<MimsCParttype>(entity =>
@@ -5145,6 +5132,11 @@ namespace ILS.DAL.Models
                 entity.Property(e => e.LocNo)
                     .HasColumnName("LOC_NO")
                     .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.MainEqpt)
+                    .HasColumnName("MAIN_EQPT")
+                    .HasMaxLength(200)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Mainsystemnumber).HasColumnName("MAINSYSTEMNUMBER");

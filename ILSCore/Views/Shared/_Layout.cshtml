@@ -542,35 +542,35 @@
                 <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
                 <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
                 <ul class="page-sidebar-menu   " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
-                    <li class="nav-item start ">
-                        <a href="javascript:;" class="nav-link nav-toggle">
-                            <i class="icon-home"></i>
-                            <span class="title">Dashboard</span>
-                            <span class="arrow"></span>
-                        </a>
-                        <ul class="sub-menu">
-                            <li class="nav-item start ">
-                                <a href="index.html" class="nav-link ">
-                                    <i class="icon-bar-chart"></i>
-                                    <span class="title">Dashboard 1</span>
-                                </a>
-                            </li>
-                            <li class="nav-item start ">
-                                <a href="dashboard_2.html" class="nav-link ">
-                                    <i class="icon-bulb"></i>
-                                    <span class="title">Dashboard 2</span>
-                                    <span class="badge badge-success">1</span>
-                                </a>
-                            </li>
-                            <li class="nav-item start ">
-                                <a href="dashboard_3.html" class="nav-link ">
-                                    <i class="icon-graph"></i>
-                                    <span class="title">Dashboard 3</span>
-                                    <span class="badge badge-danger">5</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                    @*<li class="nav-item start ">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class="icon-home"></i>
+                                <span class="title">Dashboard</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li class="nav-item start ">
+                                    <a href="index.html" class="nav-link ">
+                                        <i class="icon-bar-chart"></i>
+                                        <span class="title">Dashboard 1</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item start ">
+                                    <a href="dashboard_2.html" class="nav-link ">
+                                        <i class="icon-bulb"></i>
+                                        <span class="title">Dashboard 2</span>
+                                        <span class="badge badge-success">1</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item start ">
+                                    <a href="dashboard_3.html" class="nav-link ">
+                                        <i class="icon-graph"></i>
+                                        <span class="title">Dashboard 3</span>
+                                        <span class="badge badge-danger">5</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>*@
                     <li class="heading">
                         <h3 class="uppercase">Features</h3>
                     </li>
@@ -583,21 +583,45 @@
                         </a>
                         <ul class="sub-menu">
                             <li class="nav-item  ">
-                                <a href='@Url.Action("Index", "Parts")' class="nav-link ">
-                                    <i class="icon-diamond"></i>
-                                    <span class="title">Index</span>
-                                </a>
-                            </li>
-                            <li class="nav-item  ">
                                 <a href='@Url.Action("AddParts", "Parts")' class="nav-link ">
-                                    <i class="icon-diamond"></i>
+                                    <i class="fa fa-cog"></i>
                                     <span class="title">Add Parts</span>
                                 </a>
                             </li>
                             <li class="nav-item  ">
+                                <a href='@Url.Action("Index", "Parts")' class="nav-link ">
+                                    <i class="fa fa-eye"></i>
+                                    <span class="title">View Parts</span>
+                                </a>
+                            </li>
+                        </ul>
+
+                    </li>
+
+
+                    <li class="nav-item  ">
+                        <a href='@Url.Action("Index", "Parts")' class="nav-link nav-toggle">
+                            <i class="fa fa-pie-chart"></i>
+                            <span class="title">Configuration</span>
+                            <span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item  ">
                                 <a href='@Url.Action("GetAssociatedPartView", "Parts")' class="nav-link ">
-                                    <i class="icon-diamond"></i>
+                                    <i class="glyphicon glyphicon-align-left"></i>
                                     <span class="title">Parts List</span>
+                                </a>
+                            </li>
+                            <li class="nav-item  ">
+                                <a href='@Url.Action("EquipmentConfiguration", "Parts")' class="nav-link ">
+                                    <i class="fa fa-cogs"></i>
+                                    <span class="title">Equipment Configuration</span>
+                                </a>
+                            </li>
+                            <li class="nav-item  ">
+                                <a href='@Url.Action("SiteConfiguration", "Parts")' class="nav-link ">
+                                    <i class="fa fa-firefox"></i>
+                                    <span class="title">Site Configuration</span>
                                 </a>
                             </li>
 
@@ -1284,6 +1308,8 @@
     <!-- END CORE PLUGINS -->
     <!-- BEGIN PAGE LEVEL PLUGINS -->
 
+    <script src="@Url.Content("~/assets/global/plugins/jquery-ui/jquery-ui.min.js")"></script>
+
     <script src="@Url.Content("~/assets/global/plugins/moment.min.js")"></script>
     <script src="@Url.Content("~/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js")"></script>
     <script src="@Url.Content("~/assets/global/plugins/morris/morris.min.js")"></script>
@@ -1302,13 +1328,11 @@
     <script src="@Url.Content("~/assets/global/plugins/bootstrap-toastr/toastr.min.js")"></script>
 
     <!-- END PAGE LEVEL PLUGINS -->
-
     <!-- BEGIN THEME GLOBAL SCRIPTS -->
 
     <script src="@Url.Content("~/assets/global/scripts/app.min.js")"></script>
 
     <!-- END THEME GLOBAL SCRIPTS -->
-
     <!-- BEGIN PAGE LEVEL PLUGINS -->
 
     <script src="@Url.Content("~/assets/pages/scripts/table-datatables-managed.min.js")"></script>
@@ -1316,7 +1340,7 @@
     <script src="@Url.Content("~/assets/pages/scripts/ui-toastr.min.js")"></script>
 
     <script src="@Url.Content("~/assets/pages/scripts/ui-tree.js")"></script>
-   
+
     <script src="@Url.Content("~/assets/pages/scripts/dashboard.min.js")"></script>
 
     <script src="@Url.Content("~/assets/pages/scripts/ui-extended-modals.min.js")"></script>
@@ -1325,7 +1349,6 @@
 
 
     <!-- END PAGE LEVEL PLUGINS -->
-
     <!-- BEGIN THEME LAYOUT SCRIPTS -->
     <script src="@Url.Content("~/assets/layouts/layout4/scripts/layout.min.js")"></script>
     <script src="@Url.Content("~/assets/layouts/layout4/scripts/demo.min.js")"></script>

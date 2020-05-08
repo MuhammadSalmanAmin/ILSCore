@@ -360,7 +360,7 @@ namespace ILS.Controllers
                 {
                     rootModel = new NewJSTreeVM()
                     {
-                          
+
                         id = dt.Rows[0]["parentPartId"]?.ToString(),
                         text = dt.Rows[0]["parentName"]?.ToString(),
                         children = new List<JsTreeViewModel>()
@@ -390,7 +390,7 @@ namespace ILS.Controllers
 
                     rootModel.children.Add(new JsTreeViewModel()
                     {
-                         
+
                         id = dt.Rows[0]["parentPartId"]?.ToString() + "##" + rows["childPartId"]?.ToString() + "##",
                         children = dt.Select("parentPartId = '" + rows["childPartId"]?.ToString() + "'").Any() ? true : false,
                         text = text
@@ -422,14 +422,15 @@ namespace ILS.Controllers
         }
 
         [HttpGet]
-        public JsonResult GetPartsData()
+        public JsonResult GetPartsData(string filter)
         {
-            var result = _partService.GetPartsData();
+            var result = _partService.GetPartsData(filter == "Equipment" ? "X" : "A || X");
             return Json(result);
         }
 
         public ActionResult GetAssociatedPartView()
         {
+            ViewData["Mode"] = "Mixed";
             return View("PartsList");
         }
 
@@ -468,7 +469,7 @@ namespace ILS.Controllers
         }
 
         [HttpPost]
-        public JsonResult LinkPart(string quantity,string parentPartId,string childPartId)
+        public JsonResult LinkPart(string quantity, string parentPartId, string childPartId)
         {
             var result = _partService.LinkPart(quantity, parentPartId, childPartId);
             return Json(result);
@@ -482,7 +483,57 @@ namespace ILS.Controllers
             return Json(result);
         }
 
-        
+        public ActionResult EquipmentConfiguration()
+        {
+            ViewData["Mode"] = "Equipment";
+            return View("PartsList");
+        }
+
+        public ActionResult SiteConfiguration()
+        {
+            return View("SiteConfigIndex", LoadSiteSearchData());
+        }
+        public SiteConfigSearchViewModel LoadSiteSearchData()
+        {
+            SiteConfigSearchViewModel viewModel = new SiteConfigSearchViewModel();
+
+            List<SelectListItem> sites = new List<SelectListItem>();
+            var siteList = _partService.GetAllSite().Where(x=>x.Configured == 1).ToList();
+            foreach (var site in siteList)
+            {
+                sites.Add(new SelectListItem
+                {
+                    Value = site.SiteNo.ToString(),
+                    Text = site.SiteName
+                });
+            }
+
+            viewModel.ConfiguredSitesList = sites;
+            viewModel.Schemes = new List<SelectListItem>()
+            {
+                new SelectListItem(){Value = "1" , Text = "8 Digit Scheme"},
+                new SelectListItem(){Value = "2" , Text = "American Scheme"},
+                new SelectListItem(){Value = "3" , Text = "British Scheme"},
+            };
+
+            return viewModel;
+        }
+
+        [HttpPost]
+        public JsonResult LoadConfiguredSites()
+        {
+            List<SelectListItem> sites = new List<SelectListItem>();
+            var siteList = _partService.GetAllSite().ToList();
+            foreach (var site in siteList)
+            {
+                sites.Add(new SelectListItem
+                {
+                    Value = site.SiteNo.ToString(),
+                    Text = site.SiteName
+                });
+            }
+            return Json(sites);
+        }
     }
 
     public class TreeViewModel

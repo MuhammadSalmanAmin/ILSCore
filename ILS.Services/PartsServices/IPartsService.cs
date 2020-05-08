@@ -58,11 +58,12 @@ namespace ILS.Services
         public abstract   List<MimsXSla> GetSLAInfo();
 
         public abstract DataTable GetTreeViewData(string partId);
-        public abstract List<CustomClass> GetPartsData();
+        public abstract List<CustomClass> GetPartsData(string filter);
 
         public abstract bool DeletePart(string partId);
 
         public abstract bool LinkPart(string quantity, string parentPartId, string childPartId);
 
+        public abstract IEnumerable<MimsASites> GetAllSite();
     }
 }

@@ -76,5 +76,6 @@ namespace ILS.DAL.Models
         public string Expr1 { get; set; }
         public string PmsDesc { get; set; }
         public string SiteName { get; set; }
+        public string MainEqpt { get; set; }
     }
 }
